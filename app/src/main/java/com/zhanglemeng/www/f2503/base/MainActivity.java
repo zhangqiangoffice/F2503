@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.zhanglemeng.www.f2503.R;
+
 
 /**
  * 主界面
