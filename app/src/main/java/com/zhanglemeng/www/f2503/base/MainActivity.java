@@ -8,10 +8,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.minsheng.app.infomationmanagement.home.fragments.HomeFragment;
-import com.minsheng.app.infomationmanagement.message.fragments.MessageFragment;
-import com.minsheng.app.infomationmanagement.mine.fragments.MineFragment;
-import com.minsheng.app.infomationmanagement.office.fragments.OfficeFragment;
+
 import com.zhanglemeng.www.f2503.R;
 
 /**
@@ -61,7 +58,7 @@ public class MainActivity extends BaseActivity{
         TextView tvOffice = (TextView) vOffice.findViewById(R.id.btn_main2);
         tvOffice.setText("办公");
         TabHost.TabSpec officeTabSpec = tabHost.newTabSpec("tabOffice").setIndicator(vOffice);
-        tabHost.addTab(officeTabSpec,OfficeFragment.class, null);
+        tabHost.addTab(officeTabSpec,HomeFragment.class, null);
 
         // 消息：
         View vMsg = getLayoutInflater()
@@ -73,7 +70,7 @@ public class MainActivity extends BaseActivity{
         unreadLabel = (TextView) vMsg.findViewById(R.id.unread_msg_number);
         unreadLabel.setVisibility(View.GONE);
         TabHost.TabSpec msgTabSpec = tabHost.newTabSpec("tabMsg").setIndicator(vMsg);
-        tabHost.addTab(msgTabSpec, MessageFragment.class, null);
+        tabHost.addTab(msgTabSpec, HomeFragment.class, null);
         //我的
         View vUser = getLayoutInflater()
                 .inflate(R.layout.tab_hostcontent, null);
@@ -82,7 +79,7 @@ public class MainActivity extends BaseActivity{
         TextView tvUser = (TextView) vUser.findViewById(R.id.btn_main2);
         tvUser.setText("我的");
         TabHost.TabSpec userTabSpec = tabHost.newTabSpec("tabUser").setIndicator(vUser);
-        tabHost.addTab(userTabSpec, MineFragment.class, null);
+        tabHost.addTab(userTabSpec, HomeFragment.class, null);
     }
 
     @Override
