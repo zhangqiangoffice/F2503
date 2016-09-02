@@ -1,4 +1,4 @@
-package com.zhanglemeng.www.f2503.base;
+package com.zhanglemeng.www.f2503.base.activities;
 
 import android.support.v4.app.FragmentActivity;
 

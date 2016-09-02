@@ -15,17 +15,17 @@
         android:background="@color/gray_d"
         />
 
-    <!--<android.support.v4.app.FragmentTabHost-->
-        <!--android:id="@+id/tabhost"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:background="@color/white">-->
+    <android.support.v4.app.FragmentTabHost
+        android:id="@+id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white">
 
-        <!--<FrameLayout-->
-            <!--android:id="@android:id/tabcontent"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="0" />-->
-    <!--</android.support.v4.app.FragmentTabHost>-->
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0" />
+    </android.support.v4.app.FragmentTabHost>
 
 </LinearLayout>

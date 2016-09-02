@@ -1,4 +1,4 @@
-package com.zhanglemeng.www.f2503.base;
+package com.zhanglemeng.www.f2503.base.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,7 +21,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.activity_main, container, false);
+            convertView = inflater.inflate(R.layout.fragment_home, container, false);
 
         }
         ViewGroup viewParent = (ViewGroup) convertView.getParent();
