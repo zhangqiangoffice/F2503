@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">F2503</string>
     <string name="notice">提醒</string>
+    <string name="room">提醒</string>
+    <string name="tenant">租客</string>
+    <string name="bill">账单</string>
+    <string name="save">保存</string>
+    <string name="water_display">水表示数</string>
+    <string name="electricity_display">电表示数</string>
+    <string name="input">请输入</string>
+    <string name="history">历史记录</string>
+
 </resources>

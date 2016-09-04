@@ -12,20 +12,21 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_d"
+        android:background="@color/gray_bg"
         />
 
     <android.support.v4.app.FragmentTabHost
         android:id="@+id/tabhost"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/white">
+        android:layout_height="60dp">
 
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="0" />
+            android:layout_weight="0"
+            android:background="#f00"
+            />
     </android.support.v4.app.FragmentTabHost>
 
 </LinearLayout>
