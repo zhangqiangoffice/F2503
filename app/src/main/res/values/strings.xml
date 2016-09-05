@@ -9,5 +9,9 @@
     <string name="electricity_display">电表示数</string>
     <string name="input">请输入</string>
     <string name="history">历史记录</string>
+    <string name="cancel">取消</string>
+    <string name="new_tenant_check_in">新租客入住</string>
+    <string name="old_tenant_check_out">老租客结算</string>
+    <string name="save_and_fresh">保存并刷新</string>
 
 </resources>
