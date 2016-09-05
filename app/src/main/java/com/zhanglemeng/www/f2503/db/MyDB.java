@@ -46,7 +46,7 @@ public class MyDB {
     //查询水电表记录
     public List<Record> queryRecord () {
         List<Record> recordList = new ArrayList<Record>();
-        Cursor cursor = db.query("Record", null, null, null, null, null, null);
+        Cursor cursor = db.query("Record", null, null, null, null, null,"id DESC", null);
         if (cursor.moveToFirst()) {
             do {
                 String date = cursor.getString(cursor.getColumnIndex("date"));
@@ -57,6 +57,11 @@ public class MyDB {
             } while (cursor.moveToNext());
         }
         cursor.close();
+//        for (int i = 0; i < 10; i++) {
+//            Record record = new Record("2016-05-09", i , i);
+//            record.setId(i);
+//            recordList.add(record);
+//        }
         return recordList;
     }
 

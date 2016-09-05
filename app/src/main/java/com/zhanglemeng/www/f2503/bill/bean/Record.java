@@ -7,6 +7,8 @@ import java.util.Date;
  * Created by Administrator on 2016/6/17.
  */
 public class Record {
+
+    //记录ID
     private int id;
 
     //水表示数

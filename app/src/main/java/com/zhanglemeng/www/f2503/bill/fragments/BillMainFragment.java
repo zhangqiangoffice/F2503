@@ -19,6 +19,7 @@ import com.zhanglemeng.www.f2503.db.MyDB;
 import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
 import com.zhanglemeng.www.f2503.utils.T;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,6 +77,7 @@ public class BillMainFragment extends Fragment implements View.OnClickListener {
         //初始化要素
         activity = getActivity();
         myDB = myDB.getInstance(activity);
+        recordList = new ArrayList<>();
 
         //设置标题栏显示
         tv_top_title.setText(R.string.bill);
