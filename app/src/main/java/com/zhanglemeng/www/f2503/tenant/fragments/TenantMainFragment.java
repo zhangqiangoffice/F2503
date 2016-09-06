@@ -1,6 +1,7 @@
 package com.zhanglemeng.www.f2503.tenant.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhanglemeng.www.f2503.R;
+import com.zhanglemeng.www.f2503.tenant.activities.AddTenantActivity;
 import com.zhanglemeng.www.f2503.tenant.adapters.BasicFragmentPagerAdapter;
 import com.zhanglemeng.www.f2503.utils.T;
 
@@ -121,7 +123,8 @@ public class TenantMainFragment extends Fragment implements View.OnClickListener
 
             //点击右上角的 “新增” 按钮，跳转到新增租客界面
             case R.id.top_right_text:
-                T.showShort(activity, "新增租客");
+                Intent intent = new Intent(activity, AddTenantActivity.class);
+                startActivity(intent);
                 break;
 
             //点击左侧“在住租客”，滑动页滑动

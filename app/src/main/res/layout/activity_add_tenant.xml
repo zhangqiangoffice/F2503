@@ -1,0 +1,354 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:orientation="vertical">
+
+    <!-- 标题栏-->
+    <include layout="@layout/include_title_bar"/>
+
+    <!-- 租客信息-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/gray_text"
+        android:text="@string/tenant_info"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+    <!--姓名-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/name"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/black_text"
+            />
+
+        <EditText
+            android:id="@+id/name_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/input"
+            android:background="@null"
+            android:textColor="@color/black_text"
+            android:padding="10dp"
+            android:textSize="16sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+    <!-- 性别-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/sex"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/black_text"
+            />
+
+        <EditText
+            android:id="@+id/sex_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/input"
+            android:background="@null"
+            android:textColor="@color/black_text"
+            android:padding="10dp"
+            android:textSize="16sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+    <!-- 电话-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/phone"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/black_text"
+            />
+
+        <EditText
+            android:id="@+id/phone_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/input"
+            android:background="@null"
+            android:textColor="@color/black_text"
+            android:padding="10dp"
+            android:textSize="16sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+    <!-- 身份证-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/id_card"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/black_text"
+            />
+
+        <EditText
+            android:id="@+id/id_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/input"
+            android:background="@null"
+            android:textColor="@color/black_text"
+            android:padding="10dp"
+            android:textSize="16sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+
+    <!-- 合同信息-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/gray_text"
+        android:text="@string/contract_info"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+    <!--合同起期-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/contract_begin_date"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/black_text"
+            />
+
+        <EditText
+            android:id="@+id/begin_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/input"
+            android:background="@null"
+            android:textColor="@color/black_text"
+            android:padding="10dp"
+            android:textSize="16sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+    <!-- 合同期限-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/contract_term"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/black_text"
+            />
+
+        <EditText
+            android:id="@+id/term_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/input"
+            android:background="@null"
+            android:textColor="@color/black_text"
+            android:padding="10dp"
+            android:textSize="16sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+    <!-- 每月租金-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/month_rent"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/black_text"
+            />
+
+        <EditText
+            android:id="@+id/rent_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/input"
+            android:background="@null"
+            android:textColor="@color/black_text"
+            android:padding="10dp"
+            android:textSize="16sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+    <!-- 付款方式-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/payment_method"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/black_text"
+            />
+
+        <EditText
+            android:id="@+id/payment_method"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/input"
+            android:background="@null"
+            android:textColor="@color/black_text"
+            android:padding="10dp"
+            android:textSize="16sp"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_border"
+        />
+
+
+
+</LinearLayout>

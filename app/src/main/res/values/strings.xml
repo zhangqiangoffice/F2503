@@ -16,5 +16,16 @@
     <string name="current_tenant">在住租客</string>
     <string name="history_tenant">历史租客</string>
     <string name="add">新增</string>
+    <string name="add_tenant">添加新租客</string>
+    <string name="tenant_info">租客信息</string>
+    <string name="name">姓名</string>
+    <string name="sex">性别</string>
+    <string name="phone">电话</string>
+    <string name="id_card">身份证</string>
+    <string name="contract_info">合同信息</string>
+    <string name="contract_begin_date">合同起期</string>
+    <string name="contract_term">合同期限(月)</string>
+    <string name="month_rent">每月租金(元)</string>
+    <string name="payment_method">付款方式</string>
 
 </resources>
