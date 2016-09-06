@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.base.fragments.HomeFragment;
 import com.zhanglemeng.www.f2503.bill.fragments.BillMainFragment;
+import com.zhanglemeng.www.f2503.tenant.fragments.TenantMainFragment;
 
 /**
  *  主界面,定义底部导航菜单，提醒、房间、租客、账单
@@ -62,7 +63,7 @@ public class MainActivity extends BaseActivity {
         ImageView ivTenant = (ImageView) vTenant.findViewById(R.id.btn_main);
         ivTenant.setImageResource(R.drawable.tab_tenant);
         TabHost.TabSpec tenantTabSpec = tabHost.newTabSpec("tabTenant").setIndicator(vTenant);
-        tabHost.addTab(tenantTabSpec, HomeFragment.class, null);
+        tabHost.addTab(tenantTabSpec, TenantMainFragment.class, null);
 
         //账单
         View vBill = getLayoutInflater().inflate(R.layout.tab_hostcontent, null);

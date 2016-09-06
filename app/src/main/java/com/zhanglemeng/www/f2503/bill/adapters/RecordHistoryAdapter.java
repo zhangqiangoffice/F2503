@@ -28,15 +28,19 @@ public class RecordHistoryAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-       final ViewHolder holder;
+        ViewHolder holder=null;
         if (convertView==null)
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.adapter_record_history, parent, false);
             holder = new ViewHolder();
+
+            //获取控件
             holder.tv_record_date = (TextView) convertView.findViewById(R.id.record_date);
             holder.tv_record_water = (TextView) convertView.findViewById(R.id.record_water);
             holder.tv_record_electric = (TextView) convertView.findViewById(R.id.record_electric);
+
+            convertView.setTag(holder);
         }else {
             holder=(ViewHolder)convertView.getTag();
         }

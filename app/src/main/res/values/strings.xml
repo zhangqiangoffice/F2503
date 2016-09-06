@@ -13,5 +13,8 @@
     <string name="new_tenant_check_in">新租客入住</string>
     <string name="old_tenant_check_out">老租客结算</string>
     <string name="save_and_fresh">保存并刷新</string>
+    <string name="current_tenant">在住租客</string>
+    <string name="history_tenant">历史租客</string>
+    <string name="add">新增</string>
 
 </resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!--<include-->
+        <!--android:id="@+id/layout_emptyview"-->
+        <!--layout="@layout/layout_emptyview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--/>-->
+    <LinearLayout
+        android:id="@+id/linear_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/layout_emptyview"
+        android:layout_above="@+id/activity_customer_ll"
+        >
+
+
+            <ListView
+                android:id="@+id/activity_customer_lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dividerHeight="10dp"
+                android:divider="@color/gray_border"
+                android:listSelector="@android:color/transparent"
+                />
+
+
+    </LinearLayout>
+</LinearLayout>

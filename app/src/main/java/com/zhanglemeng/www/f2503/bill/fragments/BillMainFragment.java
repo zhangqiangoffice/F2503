@@ -30,9 +30,10 @@ public class BillMainFragment extends Fragment implements View.OnClickListener {
 
     private View convertView;
     private Activity activity;
+    private PopupWindow popupWindow;
+
     //头部导航栏控件
     private TextView tv_top_title, tv_top_right_text;
-    private PopupWindow popupWindow;
 
     //水电表示数输入框及输入的值
     private EditText et_water_input, et_electricity_input;
@@ -41,7 +42,7 @@ public class BillMainFragment extends Fragment implements View.OnClickListener {
     //历史记录列表
     private ListView lv_record_history;
 
-    //数据库
+    //数据库相关
     private MyDB myDB;
     private Record record;
     private List<Record> recordList;
