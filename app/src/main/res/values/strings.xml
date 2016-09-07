@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">F2503</string>
     <string name="notice">提醒</string>
-    <string name="room">提醒</string>
+    <string name="room">房间</string>
     <string name="tenant">租客</string>
     <string name="bill">账单</string>
     <string name="save">保存</string>
@@ -27,5 +27,20 @@
     <string name="contract_term">合同期限(月)</string>
     <string name="month_rent">每月租金(元)</string>
     <string name="payment_method">付款方式</string>
+    <string name="no_water_input">水表示数不得为空！</string>
+    <string name="no_electricity_input">电表示数不得为空！</string>
+    <string name="no_name_input">姓名不得为空！</string>
+    <string name="no_sex_input">性别不得为空！</string>
+    <string name="no_phone_input">电话不得为空！</string>
+    <string name="no_id_card_input">身份证不得为空！</string>
+    <string name="no_contract_begin_date_input">合同起期不得为空！</string>
+    <string name="no_contract_term_input">合同期限不得为空！</string>
+    <string name="no_month_rent_input">每月租金不得为空！</string>
+    <string name="no_payment_method_input">付款方式不得为空！</string>
+    <string name="confirm">确定</string>
+    <string name="room_info">房间信息</string>
+    <string name="room_name">房间名</string>
+    <string name="no_room_name_input">房间名不得为空！</string>
+
 
 </resources>

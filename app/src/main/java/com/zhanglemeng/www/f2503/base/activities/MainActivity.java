@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.base.fragments.HomeFragment;
 import com.zhanglemeng.www.f2503.bill.fragments.BillMainFragment;
+import com.zhanglemeng.www.f2503.room.fragments.RoomMainFragment;
 import com.zhanglemeng.www.f2503.tenant.fragments.TenantMainFragment;
 
 /**
@@ -56,7 +57,7 @@ public class MainActivity extends BaseActivity {
         ImageView ivRoom = (ImageView) vRoom.findViewById(R.id.btn_main);
         ivRoom.setImageResource(R.drawable.tab_room);
         TabHost.TabSpec roomTabSpec = tabHost.newTabSpec("tabRoom").setIndicator(vRoom);
-        tabHost.addTab(roomTabSpec, HomeFragment.class, null);
+        tabHost.addTab(roomTabSpec, RoomMainFragment.class, null);
 
         //租客
         View vTenant = getLayoutInflater().inflate(R.layout.tab_hostcontent, null);

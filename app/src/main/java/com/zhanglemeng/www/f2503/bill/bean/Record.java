@@ -4,21 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2016/6/17.
+ * Created by 无名大强 on 2016/9/7.
+ * 水电表记录实体类
  */
 public class Record {
 
-    //记录ID
-    private int id;
-
-    //水表示数
-    private int water;
-
-    //电表示数
-    private int electric;
-
-    //抄表日期
-    private String date;
+    private int id;        //记录ID
+    private int water;     //水表示数
+    private int electric;  //电表示数
+    private String date;   //抄表日期
 
     public Record(String date, int water, int electric) {
         this.date = date;

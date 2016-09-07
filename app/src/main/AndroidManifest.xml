@@ -23,6 +23,11 @@
         <!--新增租客-->
         <activity android:name=".tenant.activities.AddTenantActivity"/>
 
+        <!--新增房间-->
+        <activity android:name=".room.activities.AddRoomActivity"/>
+
+
+
     </application>
 
 

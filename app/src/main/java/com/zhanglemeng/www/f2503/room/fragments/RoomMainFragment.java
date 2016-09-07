@@ -1,6 +1,7 @@
-package com.zhanglemeng.www.f2503.bill.fragments;
+package com.zhanglemeng.www.f2503.room.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.bill.adapters.RecordHistoryAdapter;
 import com.zhanglemeng.www.f2503.bill.bean.Record;
 import com.zhanglemeng.www.f2503.db.MyDB;
+import com.zhanglemeng.www.f2503.room.activities.AddRoomActivity;
 import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
 import com.zhanglemeng.www.f2503.utils.T;
 
@@ -26,7 +28,7 @@ import java.util.List;
  * Created by 无名大强 on 2016/9/4.
  * 账单首页
  */
-public class BillMainFragment extends Fragment implements View.OnClickListener {
+public class RoomMainFragment extends Fragment implements View.OnClickListener {
 
     private View convertView;
     private Activity activity;
@@ -81,8 +83,8 @@ public class BillMainFragment extends Fragment implements View.OnClickListener {
         recordList = new ArrayList<>();
 
         //设置标题栏显示
-        tv_top_title.setText(R.string.bill);
-        tv_top_right_text.setText(R.string.save);
+        tv_top_title.setText(R.string.room);
+        tv_top_right_text.setText(R.string.add);
 
         //绑定点击事件
         tv_top_right_text.setOnClickListener(this);
@@ -175,9 +177,8 @@ public class BillMainFragment extends Fragment implements View.OnClickListener {
 
             //点击右上角的 “保存” 按钮，弹出不同选择
             case R.id.top_right_text:
-                if (checkData()) {
-                    showSavePopup(v);
-                }
+                Intent intent = new Intent(activity, AddRoomActivity.class);
+                startActivity(intent);
                 break;
 
             //点击“保存并刷新”，数据存数据库，并刷新显示

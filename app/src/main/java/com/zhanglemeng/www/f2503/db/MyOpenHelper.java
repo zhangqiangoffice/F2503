@@ -21,21 +21,22 @@ public class MyOpenHelper extends SQLiteOpenHelper{
             + "id integer primary key autoincrement, "
             + "name text, "
             + "phone text, "
-            + "card_num text, "
-            + "roomid integer, "
-            + "in_date text, "
-            + "out_date text, "
-            + "status integer)";
+            + "sex text, "
+            + "id_card text, "
+            + "begin_date text, "
+            + "term text, "
+            + "rent text, "
+            + "payment_method text)";
 
     //建立房间表
     public static final String CREATE_ROOM = "create table Room ("
             + "id integer primary key autoincrement, "
             + "name text, "
-            + "tenantid integer, "
-            + "tenant text, "
+//            + "tenantid integer, "
+//            + "tenant text, "
             + "water_fee real default 0, "
             + "electric_fee real default 0, "
-            + "clear_date text, "
+//            + "clear_date text, "
             + "status integer default 0)";
 
     public MyOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

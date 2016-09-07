@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.zhanglemeng.www.f2503.bill.bean.Record;
+import com.zhanglemeng.www.f2503.room.bean.Room;
+import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,35 +59,49 @@ public class MyDB {
             } while (cursor.moveToNext());
         }
         cursor.close();
-//        for (int i = 0; i < 10; i++) {
-//            Record record = new Record("2016-05-09", i , i);
-//            record.setId(i);
-//            recordList.add(record);
-//        }
+
         return recordList;
     }
 
-//    //保存租客
-//    public void saveTenant (Tenant tenant) {
-//        if (tenant != null) {
-//
-//            //更新租客表
-//            ContentValues values = new ContentValues();
-//            values.put("name", tenant.getName());
-//            values.put("phone", tenant.getPhone());
-//            values.put("card_num", tenant.getCardNum());
-//            values.put("roomid", tenant.getRoomid());
-//            values.put("in_date", tenant.getInDate());
-//            values.put("out_date", tenant.getOutDate());
-//            values.put("status", tenant.getStatus());
-//            db.insert("Tenant", null, values);
-//
+    //保存租客
+    public void saveTenant (Tenant tenant) {
+        if (tenant != null) {
+
+            //更新租客表
+            ContentValues values = new ContentValues();
+            values.put("name", tenant.getName());
+            values.put("phone", tenant.getPhone());
+            values.put("sex", tenant.getSex());
+            values.put("phone", tenant.getPhone());
+            values.put("id_card", tenant.getId_card());
+            values.put("begin_date", tenant.getBegin_date());
+            values.put("term", tenant.getTerm());
+            values.put("rent", tenant.getRent());
+            db.insert("Tenant", null, values);
+
 //            //更新房间表
 //            ContentValues roomValues = new ContentValues();
 //            roomValues.put("status", "1");
 //            db.update("Room", roomValues, "id = ?", new String[]{String.valueOf(tenant.getRoomid())});
-//        }
-//    }
+        }
+    }
+
+
+    /**
+     * 新增一个房间
+     * @param room
+     */
+    public void saveRoom (Room room) {
+        if (room != null) {
+
+            //房间表出入一条记录
+            ContentValues values = new ContentValues();
+            values.put("name", room.getName());
+
+            db.insert("Room", null, values);
+
+        }
+    }
 //
 //    //查询空余房间的名称和id
 //    public List<Room> QueryRoomOff () {
