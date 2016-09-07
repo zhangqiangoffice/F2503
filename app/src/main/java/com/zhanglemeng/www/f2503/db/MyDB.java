@@ -102,31 +102,31 @@ public class MyDB {
 
         }
     }
-//
-//    //查询空余房间的名称和id
-//    public List<Room> QueryRoomOff () {
-//        return QueryRoom ("0");
-//    }
-//
-//    //查询在用的房间的名称和id
-//    public List<Room> QueryRoomOn () {
-//        return QueryRoom ("1");
-//    }
-//
-//    //查询房间的名称和id
-//    public List<Room> QueryRoom (String stutus) {
-//        List<Room> roomList = new ArrayList<Room>();
-//        Cursor cursor = db.query("Room", new String[] { "name","id" }, "status = ?", new String[]{stutus}, null, null, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                String name = cursor.getString(cursor.getColumnIndex("name"));
-//                int id = cursor.getInt(cursor.getColumnIndex("id"));
-//                Room room = new Room(name, id);
-//                roomList.add(room);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return roomList;
-//    }
+
+    //查询空余房间的名称和id
+    public List<Room> QueryRoomOff () {
+        return QueryRoom ("0");
+    }
+
+    //查询在用的房间的名称和id
+    public List<Room> QueryRoomOn () {
+        return QueryRoom ("1");
+    }
+
+    //查询房间的名称和id
+    public List<Room> QueryRoom (String stutus) {
+        List<Room> roomList = new ArrayList<Room>();
+        Cursor cursor = db.query("Room", new String[] { "name","id" }, "status = ?", new String[]{stutus}, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                Room room = new Room(name, id);
+                roomList.add(room);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return roomList;
+    }
 
 }

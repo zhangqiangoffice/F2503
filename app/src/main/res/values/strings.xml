@@ -41,6 +41,7 @@
     <string name="room_info">房间信息</string>
     <string name="room_name">房间名</string>
     <string name="no_room_name_input">房间名不得为空！</string>
+    <string name="check_in_room">入住房间</string>
 
 
 </resources>

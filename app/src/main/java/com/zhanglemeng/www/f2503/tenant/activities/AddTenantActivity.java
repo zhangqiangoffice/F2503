@@ -2,24 +2,36 @@ package com.zhanglemeng.www.f2503.tenant.activities;
 
 
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.base.activities.BaseActivity;
 import com.zhanglemeng.www.f2503.db.MyDB;
+import com.zhanglemeng.www.f2503.room.bean.Room;
+import com.zhanglemeng.www.f2503.tenant.adapters.RoomAvailableAdapter;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
 import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
 import com.zhanglemeng.www.f2503.utils.T;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  *  新增租客界面
  */
 
-public class AddTenantActivity extends BaseActivity implements View.OnClickListener{
+public class AddTenantActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     private PopupWindow popupWindow;
 
@@ -34,9 +46,14 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
     private EditText et_begin_date, et_term_input, et_rent_input, et_payment_method;
     private String str_begin_date, str_term, str_rent, str_payment_method;
 
+    //合同信息输入框
+    private EditText et_check_in_room;
+    private String str_check_in_room;
+
     //数据库相关
     private MyDB myDB;
     private Tenant tenant;
+    private List<Room> list_room;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +78,7 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         et_payment_method = (EditText) findViewById(R.id.payment_method);
         et_term_input = (EditText) findViewById(R.id.term_input);
         et_rent_input = (EditText) findViewById(R.id.rent_input);
+        et_check_in_room = (EditText) findViewById(R.id.check_in_room);
 
         //初始化数据库
         myDB = myDB.getInstance(this);
@@ -71,6 +89,7 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
 
         //绑定点击事件
         tv_top_right_text.setOnClickListener(this);
+        et_check_in_room.setOnClickListener(this);
 
     }
 
@@ -89,6 +108,8 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         str_term = et_term_input.getText().toString();
         str_rent = et_rent_input.getText().toString();
         str_payment_method = et_payment_method.getText().toString();
+
+        list_room = new ArrayList<>() ;
 
         if (TextUtils.isEmpty(str_name)) {
             T.showLong(this, R.string.no_name_input);
@@ -142,6 +163,17 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         tv_confirm.setOnClickListener(this);
     }
 
+    private void showRoomPopup(View v) {
+        popupWindow = PopupWindowUtils.newPop(this, R.layout.popup_list_view, v);
+        ListView lv_room = (ListView) findViewById(R.id.popup_list);
+        list_room = myDB.QueryRoomOff();
+
+        RoomAvailableAdapter adapter = new RoomAvailableAdapter(list_room, this);
+        lv_room.setAdapter(adapter);
+        lv_room.setOnItemClickListener(this);
+        et_check_in_room.setText("123");
+    }
+
     /**
      * 保存新租客到本地数据库
      */
@@ -168,10 +200,25 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
             //点击确认弹出框的“确定”按钮，执行保存租客方法
             case R.id.confirm:
                 saveTenant();
+                break;
+
+            //点击入住房间输入框
+            case R.id.check_in_room:
+                showRoomPopup(v);
+                break;
+
             default:
                 break;
 
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //选择不同的房间
+        Room room = list_room.get(position);
+        et_check_in_room.setText(room.getName());
+        PopupWindowUtils.destroy(popupWindow);
     }
 
 
