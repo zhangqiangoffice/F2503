@@ -20,7 +20,7 @@ import java.util.List;
 public class RoomAvailableAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Room>list;
+    private List<Room> list;
 
     public RoomAvailableAdapter(List<Room> list, Context context)
     {
@@ -29,9 +29,8 @@ public class RoomAvailableAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder=null;
-        if (convertView==null)
-        {
+        ViewHolder holder = null;
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.adapter_room_available, parent, false);
             holder = new ViewHolder();
@@ -41,7 +40,7 @@ public class RoomAvailableAdapter extends BaseAdapter {
 
             convertView.setTag(holder);
         }else {
-            holder=(ViewHolder)convertView.getTag();
+            holder = (ViewHolder)convertView.getTag();
         }
 
         //获取实体

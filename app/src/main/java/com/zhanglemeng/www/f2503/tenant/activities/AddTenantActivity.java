@@ -121,6 +121,7 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
      * @return
      */
     private boolean checkData () {
+
         //获取用户在界面上的输入值
         str_name = et_name_input.getText().toString();
         str_sex = et_sex_input.getText().toString();

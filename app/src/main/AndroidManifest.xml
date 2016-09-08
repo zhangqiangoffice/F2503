@@ -26,6 +26,9 @@
         <!--新增房间-->
         <activity android:name=".room.activities.AddRoomActivity"/>
 
+        <!--租客详情-->
+        <activity android:name=".tenant.activities.TenantDetailActivity"/>
+
 
 
     </application>

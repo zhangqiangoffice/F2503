@@ -134,7 +134,7 @@ public class TenantMainFragment extends Fragment implements View.OnClickListener
                 }
                 break;
 
-            //点击左侧“历史租客”，滑动页滑动
+            //点击右侧“历史租客”，滑动页滑动
             case R.id.vp_right:
                 if (vp.getCurrentItem() != 1) {
                     vp.setCurrentItem(1);
