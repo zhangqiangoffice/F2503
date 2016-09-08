@@ -2,8 +2,6 @@ package com.zhanglemeng.www.f2503.tenant.activities;
 
 
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,12 +18,12 @@ import com.zhanglemeng.www.f2503.tenant.adapters.RoomAvailableAdapter;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
 import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
 import com.zhanglemeng.www.f2503.utils.T;
+import com.zhanglemeng.www.f2503.utils.whell.TimePopupWindow;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  *  新增租客界面
@@ -54,6 +52,10 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
     private MyDB myDB;
     private Tenant tenant;
     private List<Room> list_room;
+
+    //日期选择控件
+    private TimePopupWindow pwTime;
+    private SimpleDateFormat format;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +92,28 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         //绑定点击事件
         tv_top_right_text.setOnClickListener(this);
         et_check_in_room.setOnClickListener(this);
+        et_begin_date.setOnClickListener(this);
 
+        //初始化日期选择控件
+        pwTime = new TimePopupWindow(this, TimePopupWindow.Type.YEAR_MONTH_DAY, this);
+        format = new SimpleDateFormat("yyyy-MM-dd");
+        format.setLenient(false);
+
+        //日期选择控件选择后
+        pwTime.setOnTimeSelectListener(new TimePopupWindow.OnTimeSelectListener() {
+
+            @Override
+            public void onTimeSelect(Date date) {
+                et_begin_date.setText(getTime(date));
+            }
+        });
+
+    }
+
+    //时间转换
+    public static String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
     }
 
     /**
@@ -163,15 +186,19 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         tv_confirm.setOnClickListener(this);
     }
 
+    /**
+     * 弹出可用房间选择框
+     * @param v
+     */
     private void showRoomPopup(View v) {
         popupWindow = PopupWindowUtils.newPop(this, R.layout.popup_list_view, v);
-        ListView lv_room = (ListView) findViewById(R.id.popup_list);
+        ListView lv_room = (ListView) popupWindow.getContentView().findViewById(R.id.popup_list);
         list_room = myDB.QueryRoomOff();
 
         RoomAvailableAdapter adapter = new RoomAvailableAdapter(list_room, this);
         lv_room.setAdapter(adapter);
         lv_room.setOnItemClickListener(this);
-        et_check_in_room.setText("123");
+
     }
 
     /**
@@ -202,9 +229,14 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
                 saveTenant();
                 break;
 
-            //点击入住房间输入框
+            //点击“入住房间”输入框
             case R.id.check_in_room:
                 showRoomPopup(v);
+                break;
+
+            //点击“合同起期”输入框
+            case R.id.begin_date:
+                pwTime.showAtLocation(this, v, new Date());
                 break;
 
             default:

@@ -154,6 +154,7 @@
         <EditText
             android:id="@+id/begin_date"
             style="@style/input"
+            android:focusable="false"
             />
     </LinearLayout>
 
