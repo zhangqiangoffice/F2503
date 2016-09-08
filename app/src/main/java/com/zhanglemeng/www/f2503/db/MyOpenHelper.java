@@ -26,7 +26,9 @@ public class MyOpenHelper extends SQLiteOpenHelper{
             + "begin_date text, "
             + "term text, "
             + "rent text, "
-            + "payment_method text)";
+            + "payment_method text, "
+            + "room text, "
+            + "status integer default 1)";
 
     //建立房间表
     public static final String CREATE_ROOM = "create table Room ("

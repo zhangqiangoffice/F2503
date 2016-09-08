@@ -132,6 +132,8 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         str_rent = et_rent_input.getText().toString();
         str_payment_method = et_payment_method.getText().toString();
 
+        str_check_in_room = et_check_in_room.getText().toString();
+
         list_room = new ArrayList<>() ;
 
         if (TextUtils.isEmpty(str_name)) {
@@ -174,6 +176,11 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
             return false;
         }
 
+        if (TextUtils.isEmpty(str_check_in_room)) {
+            T.showLong(this, R.string.no_check_in_room_input);
+            return false;
+        }
+
         return true;
     }
 
@@ -206,7 +213,7 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
      */
     private void saveTenant() {
         //生成租客对象
-        tenant = new Tenant(str_name, str_sex, str_phone, str_id_card,str_begin_date, str_term, str_rent, str_payment_method);
+        tenant = new Tenant(str_name, str_sex, str_phone, str_id_card,str_begin_date, str_term, str_rent, str_payment_method, str_check_in_room);
 
         //数据库操作
         myDB.saveTenant(tenant);
@@ -227,6 +234,8 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
             //点击确认弹出框的“确定”按钮，执行保存租客方法
             case R.id.confirm:
                 saveTenant();
+                PopupWindowUtils.destroy(popupWindow);
+                finish();
                 break;
 
             //点击“入住房间”输入框

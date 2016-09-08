@@ -63,7 +63,11 @@ public class MyDB {
         return recordList;
     }
 
-    //保存租客
+
+    /**
+     * 新增租客，保存租客信息、合同信息，调整房间状态
+     * @param tenant
+     */
     public void saveTenant (Tenant tenant) {
         if (tenant != null) {
 
@@ -77,12 +81,13 @@ public class MyDB {
             values.put("begin_date", tenant.getBegin_date());
             values.put("term", tenant.getTerm());
             values.put("rent", tenant.getRent());
+            values.put("room", tenant.getRoom());
             db.insert("Tenant", null, values);
 
-//            //更新房间表
-//            ContentValues roomValues = new ContentValues();
-//            roomValues.put("status", "1");
-//            db.update("Room", roomValues, "id = ?", new String[]{String.valueOf(tenant.getRoomid())});
+            //更新房间表，修改为入住状态
+            ContentValues roomValues = new ContentValues();
+            roomValues.put("status", "1");
+            db.update("Room", roomValues, "name = ?", new String[]{String.valueOf(tenant.getRoom())});
         }
     }
 
@@ -127,6 +132,22 @@ public class MyDB {
         }
         cursor.close();
         return roomList;
+    }
+
+    public List<Tenant> QueryTenantOn() {
+        List<Tenant> tenantList = new ArrayList<>();
+        Cursor cursor = db.query("Tenant", new String[] { "name", "id", "room" }, "status = ?", new String[]{"1"}, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String room = cursor.getString(cursor.getColumnIndex("room"));
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                Tenant tenant = new Tenant(id, name, room);
+                tenantList.add(tenant);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return tenantList;
     }
 
 }

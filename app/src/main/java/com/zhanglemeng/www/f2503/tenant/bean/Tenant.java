@@ -14,8 +14,9 @@ public class Tenant {
     private String term;            //合同期限
     private String rent;            //每月租金
     private String payment_method;  //支付方式
+    private String room;            //入住房间
 
-    public Tenant(String name, String sex, String phone, String id_card, String begin_date, String term, String rent, String payment_method) {
+    public Tenant(String name, String sex, String phone, String id_card, String begin_date, String term, String rent, String payment_method, String room) {
         this.name = name;
         this.sex = sex;
         this.phone = phone;
@@ -24,6 +25,13 @@ public class Tenant {
         this.term = term;
         this.rent = rent;
         this.payment_method = payment_method;
+        this.room = room;
+    }
+
+    public Tenant(int id, String name, String room) {
+        this.id = id;
+        this.name = name;
+        this.room = room;
     }
 
 
@@ -97,5 +105,13 @@ public class Tenant {
 
     public void setRent(String rent) {
         this.rent = rent;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 }

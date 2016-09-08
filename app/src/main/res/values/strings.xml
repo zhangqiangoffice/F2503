@@ -52,6 +52,7 @@
     <string name="pickerview_hours">时</string>
     <string name="pickerview_minutes">分</string>
     <string name="pickerview_seconds">秒</string>
+    <string name="no_check_in_room_input">入住房间不得为空！</string>
 
 
 </resources>
