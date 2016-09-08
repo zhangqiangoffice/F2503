@@ -1,6 +1,7 @@
 package com.zhanglemeng.www.f2503.tenant.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 
 import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.db.MyDB;
+import com.zhanglemeng.www.f2503.tenant.activities.TenantDetailActivity;
 import com.zhanglemeng.www.f2503.tenant.adapters.TenantOnAdapter;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
 
@@ -84,9 +86,10 @@ public class TenantLeftFragment extends Fragment implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Intent intent=new Intent(getActivity(), AddLoanActivity.class);
-//        intent.putExtra("loan_id", String.valueOf(data.get(position).getId()));
-//        startActivity(intent);
+        Tenant tenant = list_tenant.get(position);
+        Intent intent = new Intent(getActivity(), TenantDetailActivity.class);
+        intent.putExtra("tenant_id", String.valueOf(tenant.getId()));
+        startActivity(intent);
     }
 
 
