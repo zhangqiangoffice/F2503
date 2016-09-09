@@ -18,6 +18,9 @@ import java.util.List;
 public class MyDB {
     public static final String DB_NAME = "f_2503";
     public static final int VERSION = 1;
+    public static final int ROOM_STATUS_IN = 1;        //房间在住
+    public static final int ROOM_STATUS_OUT = 0;       //房间空闲
+
 
     private static MyDB myDB;
     private SQLiteDatabase db;
@@ -65,13 +68,14 @@ public class MyDB {
 
 
     /**
-     * 新增租客，保存租客信息、合同信息，调整房间状态
+     * 更新租客表，保存或更新租客信息、合同信息，调整房间状态，操作成功就返回 1，失败返回 0
      * @param tenant
      */
-    public void saveTenant (Tenant tenant) {
+    public int saveTenant (Tenant tenant) {
+        int result = 0;
+
         if (tenant != null) {
 
-            //更新租客表
             ContentValues values = new ContentValues();
             values.put("name", tenant.getName());
             values.put("phone", tenant.getPhone());
@@ -83,13 +87,61 @@ public class MyDB {
             values.put("rent", tenant.getRent());
             values.put("payment_method", tenant.getPayment_method());
             values.put("room", tenant.getRoom());
-            db.insert("Tenant", null, values);
 
-            //更新房间表，修改为入住状态
-            ContentValues roomValues = new ContentValues();
-            roomValues.put("status", "1");
-            db.update("Room", roomValues, "name = ?", new String[]{String.valueOf(tenant.getRoom())});
+            int id = tenant.getId();
+
+            if (id > 0) {
+
+                //存在ID就是编辑更新
+
+                //先检查是否需要修改房间表
+                String old_room_name = "";
+                Cursor cursor =  db.query("Tenant", new String[] { "room"}, "id = ?", new String[] {String.valueOf(id)}, null, null, null, null);
+                if (cursor.moveToFirst()) {
+                    old_room_name = cursor.getString(cursor.getColumnIndex("room"));
+                }
+
+                if (old_room_name.equals(tenant.getRoom())) {
+
+                    //如果相同，则不需要修改房间表，仅需要更新租客表
+                    result =  db.update("Tenant", values, "id = ?", new String[]{String.valueOf(id)});
+
+                } else {
+
+                    //如果不相同，则先修改房间表，再更新租客表
+                    int result3 = roomOut(old_room_name);
+                    int result4 = roomIn(tenant.getRoom());
+                    int result5 = db.update("Tenant", values, "id = ?", new String[]{String.valueOf(id)});
+
+                    if ( result3 > 0 && result4 > 0 && result5 > 0) {
+                        result = 1;
+                    }
+
+                }
+
+
+            } else {
+
+                //不存在ID就是新建租客
+                long result1 = db.insert("Tenant", null, values);
+
+                //更新房间表，修改为入住状态
+                int result2 = roomIn(tenant.getRoom());
+
+                //都成功才成功
+                if (result1 > 0 && result2 == 1) {
+                    result = 1 ;
+                }
+
+            }
+
+            //更新租客表
+
+
+
         }
+
+        return result;
     }
 
 
@@ -107,6 +159,34 @@ public class MyDB {
             db.insert("Room", null, values);
 
         }
+    }
+
+    /**
+     * 房间入住
+     * @return
+     */
+    public int roomIn (String name) {
+        return changeRoomStatus(name, ROOM_STATUS_IN);
+    }
+
+    /**
+     * 房间空出
+     * @return
+     */
+    public int roomOut (String name) {
+        return changeRoomStatus(name, ROOM_STATUS_OUT);
+    }
+
+    /**
+     * 改变房间状态
+     * @return
+     */
+    public int changeRoomStatus(String name, int status) {
+
+        //更新房间表
+        ContentValues cv = new ContentValues();
+        cv.put("status", status);
+        return db.update("Room", cv, "name = ?", new String[]{name});
     }
 
     //查询空余房间的名称和id
@@ -155,6 +235,11 @@ public class MyDB {
         return tenantList;
     }
 
+    /**
+     * 根据ID查租客的详情
+     * @param id
+     * @return
+     */
     public Tenant queryTenantDetail(int id) {
         Cursor cursor = db.query("Tenant", null, "id = ?", new String[]{String.valueOf(id)}, null, null, null);
 
@@ -176,6 +261,17 @@ public class MyDB {
         }
         cursor.close();
         return tenant;
+    }
+
+    /**
+     * 租客搬出，根据ID修改status为0
+     * @param id
+     * @return
+     */
+    public int tenantCheckOut (int id) {
+        ContentValues cv = new ContentValues();
+        cv.put("status", 0);
+        return db.update("Tenant", cv, "id = ?", new String[] {String.valueOf(id)});
     }
 
 }

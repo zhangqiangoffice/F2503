@@ -1,216 +1,262 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <!-- 租客详情-->
-    <View style="@style/split_line"
-        android:layout_marginTop="20dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!--姓名-->
+        <!-- 租客详情-->
+        <View style="@style/split_line"
+            android:layout_marginTop="20dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <!--姓名-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/name"
+                        />
+
+                    <EditText style="@style/input"
+                        android:id="@+id/name_input"
+                        android:focusable="false"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"/>
+
+                <!-- 性别-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/sex"
+                        />
+
+                    <EditText
+                        android:id="@+id/sex_input"
+                        style="@style/input"
+                        android:focusable="false"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line" />
+
+                <!-- 电话-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/phone"
+                        />
+
+                    <EditText
+                        android:id="@+id/phone_input"
+                        style="@style/input"
+                        android:focusable="false"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line" />
+
+                <!-- 身份证-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/id_card"
+                        />
+
+                    <EditText
+                        android:id="@+id/id_card"
+                        style="@style/input"
+                        android:focusable="false"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"/>
+
+                <!--合同起期-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/contract_begin_date"
+                        />
+
+                    <EditText
+                        android:id="@+id/begin_date"
+                        style="@style/input"
+                        android:focusable="false"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line" />
+
+                <!-- 合同期限-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/contract_term"
+                        />
+
+                    <EditText
+                        android:id="@+id/term_input"
+                        style="@style/input"
+                        android:focusable="false"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line" />
+
+                <!-- 每月租金-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/month_rent"
+                        />
+
+                    <EditText
+                        android:id="@+id/rent_input"
+                        style="@style/input"
+                        android:focusable="false"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"/>
+
+                <!-- 付款方式-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/payment_method"
+                        />
+
+                    <EditText
+                        android:id="@+id/payment_method"
+                        style="@style/input"
+                        android:focusable="false"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"/>
+
+                <!--入住房间-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/check_in_room"
+                        />
+
+                    <EditText style="@style/input"
+                        android:id="@+id/check_in_room"
+                        android:focusable="false"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"
+                    android:layout_marginBottom="40dp"
+                    />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         >
 
-        <TextView
-            style="@style/input_item"
-            android:text="@string/name"
+        <Button style="@style/bottom_btn"
+            android:id="@+id/check_out"
+            android:text="@string/check_out"
             />
 
-        <EditText style="@style/input"
-            android:id="@+id/name_input"
-            android:focusable="false"
+        <Button style="@style/bottom_btn"
+            android:id="@+id/edit_tenant"
+            android:text="@string/change"
+            android:background="@color/orange_btn"
             />
 
     </LinearLayout>
 
-    <View style="@style/split_line"/>
 
-    <!-- 性别-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            style="@style/input_item"
-            android:text="@string/sex"
-            />
-
-        <EditText
-            android:id="@+id/sex_input"
-            style="@style/input"
-            android:focusable="false"
-            />
-
-    </LinearLayout>
-
-    <View style="@style/split_line" />
-
-    <!-- 电话-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            style="@style/input_item"
-            android:text="@string/phone"
-            />
-
-        <EditText
-            android:id="@+id/phone_input"
-            style="@style/input"
-            android:focusable="false"
-            />
-
-    </LinearLayout>
-
-    <View style="@style/split_line" />
-
-    <!-- 身份证-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            style="@style/input_item"
-            android:text="@string/id_card"
-            />
-
-        <EditText
-            android:id="@+id/id_card"
-            style="@style/input"
-            android:focusable="false"
-            />
-
-    </LinearLayout>
-
-    <View style="@style/split_line"/>
-
-    <!--合同起期-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            style="@style/input_item"
-            android:text="@string/contract_begin_date"
-            />
-
-        <EditText
-            android:id="@+id/begin_date"
-            style="@style/input"
-            android:focusable="false"
-            />
-
-    </LinearLayout>
-
-    <View style="@style/split_line" />
-
-    <!-- 合同期限-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            style="@style/input_item"
-            android:text="@string/contract_term"
-            />
-
-        <EditText
-            android:id="@+id/term_input"
-            style="@style/input"
-            android:focusable="false"
-            />
-
-    </LinearLayout>
-
-    <View style="@style/split_line" />
-
-    <!-- 每月租金-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            style="@style/input_item"
-            android:text="@string/month_rent"
-            />
-
-        <EditText
-            android:id="@+id/rent_input"
-            style="@style/input"
-            android:focusable="false"
-            />
-
-    </LinearLayout>
-
-    <View style="@style/split_line"/>
-
-    <!-- 付款方式-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            style="@style/input_item"
-            android:text="@string/payment_method"
-            />
-
-        <EditText
-            android:id="@+id/payment_method"
-            style="@style/input"
-            android:focusable="false"
-            />
-
-    </LinearLayout>
-
-    <View style="@style/split_line"/>
-
-    <!--入住房间-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            style="@style/input_item"
-            android:text="@string/check_in_room"
-            />
-
-        <EditText style="@style/input"
-            android:id="@+id/check_in_room"
-            android:focusable="false"
-            />
-
-    </LinearLayout>
-
-    <View style="@style/split_line"/>
-
-</LinearLayout>
+</RelativeLayout>

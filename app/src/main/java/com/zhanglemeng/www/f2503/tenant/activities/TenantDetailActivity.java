@@ -75,15 +75,17 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
         fragment_left = new DetailBasicFragment();
         fragment_middlle = new DetailFeeFragment();
         fragment_right = new DetailPaymentFragment();
+
         Bundle bundle = new Bundle();
         bundle.putInt("tenant_id", tenant_id);
+
         fragment_left.setArguments(bundle);
         fragment_middlle.setArguments(bundle);
         fragment_right.setArguments(bundle);
+
         list_fragment.add(fragment_left);
         list_fragment.add(fragment_middlle);
         list_fragment.add(fragment_right);
-
 
         //绑定点击事件
         tv_top_right_text.setOnClickListener(this);
@@ -101,7 +103,7 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onPageSelected(int position) {
 
-
+                //页面切换后，要更换字体颜色和下划线颜色
                 if (position == 0) {
                     ll_vp_selected.setGravity(Gravity.LEFT);
                     tv_vp_left.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
@@ -125,14 +127,6 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
             }
         });
 
-    }
-
-    /**
-     * 用于从fragment获取tenant_id
-     * @return
-     */
-    public int getTenant_id() {
-        return tenant_id;
     }
 
     @Override

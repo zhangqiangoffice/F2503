@@ -1,6 +1,7 @@
 package com.zhanglemeng.www.f2503.tenant.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.base.activities.BaseActivity;
+import com.zhanglemeng.www.f2503.base.activities.MainActivity;
 import com.zhanglemeng.www.f2503.db.MyDB;
 import com.zhanglemeng.www.f2503.room.bean.Room;
 import com.zhanglemeng.www.f2503.tenant.adapters.RoomAvailableAdapter;
@@ -57,6 +59,10 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
     private TimePopupWindow pwTime;
     private SimpleDateFormat format;
 
+    //是否是编辑
+    private boolean is_edit;
+    private int tenant_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +90,21 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
 
         //初始化数据库
         myDB = myDB.getInstance(this);
+
+        //判断是否是编辑
+        tenant_id = getIntent().getIntExtra("tenant_id", 0);
+
+        if (tenant_id > 0) {
+            is_edit = true;
+        } else {
+            is_edit = false;
+        }
+
+        if (is_edit) {
+
+            //显示编辑信息
+            showEditInfo();
+        }
 
         //设置标题栏显示
         tv_top_title.setText(R.string.add_tenant);
@@ -114,6 +135,28 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
     public static String getTime(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(date);
+    }
+
+    /**
+     *
+     */
+    private void showEditInfo() {
+
+        //数据库操作
+        tenant = myDB.queryTenantDetail(tenant_id);
+
+        //填充要修改的客户的信息
+        et_name_input.setText(tenant.getName());
+        et_sex_input.setText(tenant.getSex());
+        et_phone_input.setText(tenant.getPhone());
+        et_id_card.setText(tenant.getId_card());
+
+        et_begin_date.setText(tenant.getBegin_date());
+        et_term_input.setText(tenant.getTerm());
+        et_rent_input.setText(tenant.getRent());
+        et_payment_method.setText(tenant.getPayment_method());
+
+        et_check_in_room.setText(tenant.getRoom());
     }
 
     /**
@@ -216,6 +259,11 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         //生成租客对象
         tenant = new Tenant(str_name, str_sex, str_phone, str_id_card,str_begin_date, str_term, str_rent, str_payment_method, str_check_in_room);
 
+        //如果是编辑状态下则要添加租客ID
+        if (is_edit) {
+            tenant.setId(tenant_id);
+        }
+
         //数据库操作
         myDB.saveTenant(tenant);
         T.showShort(this, "保存成功！");
@@ -236,6 +284,8 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
             case R.id.confirm:
                 saveTenant();
                 PopupWindowUtils.destroy(popupWindow);
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 finish();
                 break;
 

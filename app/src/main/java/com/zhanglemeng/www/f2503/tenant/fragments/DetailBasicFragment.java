@@ -2,24 +2,32 @@ package com.zhanglemeng.www.f2503.tenant.fragments;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.db.MyDB;
+import com.zhanglemeng.www.f2503.tenant.activities.AddTenantActivity;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
+import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
+import com.zhanglemeng.www.f2503.utils.T;
 
 /**
  * Created by inkun on 16/9/8.
  */
-public class DetailBasicFragment extends Fragment {
+public class DetailBasicFragment extends Fragment implements View.OnClickListener{
 
     private View convertView;
     private Activity activity;
+    private PopupWindow popupWindow;
 
     //租客信息输入框
     private EditText et_name_input, et_sex_input, et_phone_input, et_id_card;
@@ -37,6 +45,9 @@ public class DetailBasicFragment extends Fragment {
     private MyDB myDB;
     private int tenant_id;
     private Tenant tenant;
+
+    //底部按钮
+    private Button btn_check_out, btn_edit_tenant;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +80,8 @@ public class DetailBasicFragment extends Fragment {
         et_term_input = (EditText) v.findViewById(R.id.term_input);
         et_rent_input = (EditText) v.findViewById(R.id.rent_input);
         et_check_in_room = (EditText) v.findViewById(R.id.check_in_room);
+        btn_check_out = (Button) v.findViewById(R.id.check_out);
+        btn_edit_tenant = (Button) v.findViewById(R.id.edit_tenant);
 
         //初始化父activity
         activity = getActivity();
@@ -79,7 +92,20 @@ public class DetailBasicFragment extends Fragment {
         //获取租客ID
         tenant_id = getArguments().getInt("tenant_id", 0);
 
+        //绑定点击事件
+        btn_check_out.setOnClickListener(this);
+        btn_edit_tenant.setOnClickListener(this);
+
         showDetail();
+    }
+
+    /**
+     * 弹出确认选择框
+     */
+    private void showConfirmPopup(View v) {
+        popupWindow = PopupWindowUtils.newPop(activity, R.layout.popup_confirm, v);
+        TextView tv_confirm = (TextView) popupWindow.getContentView().findViewById(R.id.confirm);
+        tv_confirm.setOnClickListener(this);
     }
 
 
@@ -104,4 +130,37 @@ public class DetailBasicFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            //点击“搬出”按钮，弹出确认框
+            case R.id.check_out:
+                showConfirmPopup(v);
+                break;
+
+            //点击“修改”按钮，跳转到编辑页面
+            case R.id.edit_tenant:
+                Intent intent = new Intent(getActivity(), AddTenantActivity.class);
+                intent.putExtra("tenant_id", tenant_id);
+                startActivity(intent);
+                break;
+
+            //点击搬出确认框中的“确定”按钮
+            case R.id.confirm:
+                int result = myDB.tenantCheckOut(tenant_id);
+                if (result == 1) {
+                    T.showShort(activity, R.string.success_to_do);
+                    activity.finish();
+                } else {
+                    T.showLong(activity, R.string.fail_to_do);
+                }
+
+                break;
+
+            default:
+                break;
+
+        }
+    }
 }

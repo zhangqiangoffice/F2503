@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="orange_btn">#FFA800</color>
+
     <color name="black_text">#333</color>
 
     <color name="gray_bg">#F2F2F2</color>

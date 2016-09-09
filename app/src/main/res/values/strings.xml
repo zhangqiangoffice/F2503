@@ -52,10 +52,17 @@
     <string name="pickerview_hours">时</string>
     <string name="pickerview_minutes">分</string>
     <string name="pickerview_seconds">秒</string>
+
+
     <string name="no_check_in_room_input">入住房间不得为空！</string>
     <string name="tenant_detail">租客详情</string>
     <string name="fee_detail">费用详情</string>
     <string name="payment_record">缴费记录</string>
+    <string name="check_out">搬出</string>
+    <string name="change">修改</string>
+    <string name="fail_to_do">操作失败！</string>
+    <string name="success_to_do">操作成功！</string>
+    <string name="success_to_save">保存成功！</string>
 
 
 </resources>

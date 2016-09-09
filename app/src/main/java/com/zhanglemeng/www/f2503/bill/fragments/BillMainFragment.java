@@ -146,7 +146,7 @@ public class BillMainFragment extends Fragment implements View.OnClickListener {
 
         //数据库操作
         myDB.saveRecord(record);
-        T.showShort(activity, "保存成功！");
+        T.showShort(activity, R.string.success_to_save);
 
     }
 
