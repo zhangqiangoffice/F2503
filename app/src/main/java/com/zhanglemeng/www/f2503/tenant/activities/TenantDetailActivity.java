@@ -1,8 +1,6 @@
 package com.zhanglemeng.www.f2503.tenant.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -17,8 +15,6 @@ import com.zhanglemeng.www.f2503.tenant.adapters.BasicFragmentPagerAdapter;
 import com.zhanglemeng.www.f2503.tenant.fragments.DetailBasicFragment;
 import com.zhanglemeng.www.f2503.tenant.fragments.DetailFeeFragment;
 import com.zhanglemeng.www.f2503.tenant.fragments.DetailPaymentFragment;
-import com.zhanglemeng.www.f2503.tenant.fragments.TenantLeftFragment;
-import com.zhanglemeng.www.f2503.tenant.fragments.TenantRightFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +40,8 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
     private DetailPaymentFragment fragment_right;
     private List<Fragment> list_fragment = new ArrayList<Fragment>();
 
+    private int tenant_id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,21 +64,31 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
         ll_vp_selected = (LinearLayout) findViewById(R.id.vp_selected);
         vp = (ViewPager) findViewById(R.id.view_pager);
 
+        //获取租客ID
+        tenant_id = getIntent().getIntExtra("tenant_id", 0);
+
         //设置标题栏显示
         tv_top_title.setText(R.string.tenant_detail);
         tv_top_right_text.setText(R.string.add);
 
-        //初始化左右fragment
+        //初始化左中右fragment
         fragment_left = new DetailBasicFragment();
         fragment_middlle = new DetailFeeFragment();
         fragment_right = new DetailPaymentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("tenant_id", tenant_id);
+        fragment_left.setArguments(bundle);
+        fragment_middlle.setArguments(bundle);
+        fragment_right.setArguments(bundle);
         list_fragment.add(fragment_left);
         list_fragment.add(fragment_middlle);
         list_fragment.add(fragment_right);
 
+
         //绑定点击事件
         tv_top_right_text.setOnClickListener(this);
         tv_vp_left.setOnClickListener(this);
+        tv_vp_middle.setOnClickListener(this);
         tv_vp_right.setOnClickListener(this);
 
         //设置ViewPage
@@ -117,6 +125,14 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
             }
         });
 
+    }
+
+    /**
+     * 用于从fragment获取tenant_id
+     * @return
+     */
+    public int getTenant_id() {
+        return tenant_id;
     }
 
     @Override

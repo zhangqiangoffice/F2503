@@ -75,7 +75,7 @@ public class TenantLeftFragment extends Fragment implements AdapterView.OnItemCl
     private void showTenantList() {
 
         //查询数据库
-        list_tenant = myDB.QueryTenantOn();
+        list_tenant = myDB.queryTenantOn();
 
         //适配器
         TenantOnAdapter adapter = new TenantOnAdapter(list_tenant, activity);
@@ -88,7 +88,7 @@ public class TenantLeftFragment extends Fragment implements AdapterView.OnItemCl
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Tenant tenant = list_tenant.get(position);
         Intent intent = new Intent(getActivity(), TenantDetailActivity.class);
-        intent.putExtra("tenant_id", String.valueOf(tenant.getId()));
+        intent.putExtra("tenant_id", tenant.getId());
         startActivity(intent);
     }
 

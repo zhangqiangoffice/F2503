@@ -44,7 +44,7 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
     private EditText et_begin_date, et_term_input, et_rent_input, et_payment_method;
     private String str_begin_date, str_term, str_rent, str_payment_method;
 
-    //合同信息输入框
+    //房间信息输入框
     private EditText et_check_in_room;
     private String str_check_in_room;
 
@@ -201,7 +201,7 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
     private void showRoomPopup(View v) {
         popupWindow = PopupWindowUtils.newPop(this, R.layout.popup_list_view, v);
         ListView lv_room = (ListView) popupWindow.getContentView().findViewById(R.id.popup_list);
-        list_room = myDB.QueryRoomOff();
+        list_room = myDB.queryRoomOff();
 
         RoomAvailableAdapter adapter = new RoomAvailableAdapter(list_room, this);
         lv_room.setAdapter(adapter);

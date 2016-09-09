@@ -81,6 +81,7 @@ public class MyDB {
             values.put("begin_date", tenant.getBegin_date());
             values.put("term", tenant.getTerm());
             values.put("rent", tenant.getRent());
+            values.put("payment_method", tenant.getPayment_method());
             values.put("room", tenant.getRoom());
             db.insert("Tenant", null, values);
 
@@ -109,17 +110,17 @@ public class MyDB {
     }
 
     //查询空余房间的名称和id
-    public List<Room> QueryRoomOff () {
-        return QueryRoom ("0");
+    public List<Room> queryRoomOff () {
+        return queryRoom("0");
     }
 
     //查询在用的房间的名称和id
-    public List<Room> QueryRoomOn () {
-        return QueryRoom ("1");
+    public List<Room> queryRoomOn () {
+        return queryRoom("1");
     }
 
     //查询房间的名称和id
-    public List<Room> QueryRoom (String stutus) {
+    public List<Room> queryRoom (String stutus) {
         List<Room> roomList = new ArrayList<Room>();
         Cursor cursor = db.query("Room", new String[] { "name","id" }, "status = ?", new String[]{stutus}, null, null, null);
         if (cursor.moveToFirst()) {
@@ -134,7 +135,11 @@ public class MyDB {
         return roomList;
     }
 
-    public List<Tenant> QueryTenantOn() {
+    /**
+     * 查找在住租客列表
+     * @return
+     */
+    public List<Tenant> queryTenantOn() {
         List<Tenant> tenantList = new ArrayList<>();
         Cursor cursor = db.query("Tenant", new String[] { "name", "id", "room" }, "status = ?", new String[]{"1"}, null, null, null);
         if (cursor.moveToFirst()) {
@@ -148,6 +153,29 @@ public class MyDB {
         }
         cursor.close();
         return tenantList;
+    }
+
+    public Tenant queryTenantDetail(int id) {
+        Cursor cursor = db.query("Tenant", null, "id = ?", new String[]{String.valueOf(id)}, null, null, null);
+
+        Tenant tenant = new Tenant();
+        if (cursor.moveToFirst()) {
+
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String sex = cursor.getString(cursor.getColumnIndex("sex"));
+                String phone = cursor.getString(cursor.getColumnIndex("phone"));
+                String id_card = cursor.getString(cursor.getColumnIndex("id_card"));
+                String begin_date = cursor.getString(cursor.getColumnIndex("begin_date"));
+                String term = cursor.getString(cursor.getColumnIndex("term"));
+                String rent = cursor.getString(cursor.getColumnIndex("rent"));
+                String payment_method = cursor.getString(cursor.getColumnIndex("payment_method"));
+                String room = cursor.getString(cursor.getColumnIndex("room"));
+
+                tenant = new Tenant(name, sex, phone, id_card, begin_date, term, rent, payment_method, room);
+
+        }
+        cursor.close();
+        return tenant;
     }
 
 }

@@ -5,8 +5,7 @@
 
     <!-- 租客详情-->
     <View style="@style/split_line"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="20dp" />
 
     <!--姓名-->
     <LinearLayout
@@ -21,11 +20,11 @@
             android:text="@string/name"
             />
 
-        <EditText
+        <EditText style="@style/input"
             android:id="@+id/name_input"
-            style="@style/input"
-
+            android:focusable="false"
             />
+
     </LinearLayout>
 
     <View style="@style/split_line"/>
@@ -46,11 +45,12 @@
         <EditText
             android:id="@+id/sex_input"
             style="@style/input"
-
+            android:focusable="false"
             />
+
     </LinearLayout>
 
-    <View style="@style/split_line"/>
+    <View style="@style/split_line" />
 
     <!-- 电话-->
     <LinearLayout
@@ -68,12 +68,12 @@
         <EditText
             android:id="@+id/phone_input"
             style="@style/input"
-            android:inputType="phone"
-
+            android:focusable="false"
             />
+
     </LinearLayout>
 
-    <View style="@style/split_line"/>
+    <View style="@style/split_line" />
 
     <!-- 身份证-->
 
@@ -92,11 +92,12 @@
         <EditText
             android:id="@+id/id_card"
             style="@style/input"
-
+            android:focusable="false"
             />
+
     </LinearLayout>
 
-    <View style="@style/split_line" />
+    <View style="@style/split_line"/>
 
     <!--合同起期-->
     <LinearLayout
@@ -116,9 +117,10 @@
             style="@style/input"
             android:focusable="false"
             />
+
     </LinearLayout>
 
-    <View style="@style/split_line"/>
+    <View style="@style/split_line" />
 
     <!-- 合同期限-->
     <LinearLayout
@@ -136,11 +138,12 @@
         <EditText
             android:id="@+id/term_input"
             style="@style/input"
-
+            android:focusable="false"
             />
+
     </LinearLayout>
 
-    <View style="@style/split_line"/>
+    <View style="@style/split_line" />
 
     <!-- 每月租金-->
     <LinearLayout
@@ -158,8 +161,9 @@
         <EditText
             android:id="@+id/rent_input"
             style="@style/input"
-
+            android:focusable="false"
             />
+
     </LinearLayout>
 
     <View style="@style/split_line"/>
@@ -180,8 +184,9 @@
         <EditText
             android:id="@+id/payment_method"
             style="@style/input"
-
+            android:focusable="false"
             />
+
     </LinearLayout>
 
     <View style="@style/split_line"/>
@@ -199,11 +204,11 @@
             android:text="@string/check_in_room"
             />
 
-        <EditText
+        <EditText style="@style/input"
             android:id="@+id/check_in_room"
             android:focusable="false"
-            style="@style/input"
             />
+
     </LinearLayout>
 
     <View style="@style/split_line"/>

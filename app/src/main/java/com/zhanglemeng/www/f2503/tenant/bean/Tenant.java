@@ -1,7 +1,7 @@
 package com.zhanglemeng.www.f2503.tenant.bean;
 
 /**
- * Created by Administrator on 2016/6/17.
+ * Created by 无名大强 on 2016/6/17.
  */
 public class Tenant {
 
@@ -32,6 +32,10 @@ public class Tenant {
         this.id = id;
         this.name = name;
         this.room = room;
+    }
+
+    public Tenant() {
+
     }
 
 
