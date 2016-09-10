@@ -92,11 +92,13 @@ public class DetailBasicFragment extends Fragment implements View.OnClickListene
         //获取租客ID
         tenant_id = getArguments().getInt("tenant_id", 0);
 
+        //展示详情
+        showDetail();
+
         //绑定点击事件
         btn_check_out.setOnClickListener(this);
         btn_edit_tenant.setOnClickListener(this);
 
-        showDetail();
     }
 
     /**
@@ -107,7 +109,6 @@ public class DetailBasicFragment extends Fragment implements View.OnClickListene
         TextView tv_confirm = (TextView) popupWindow.getContentView().findViewById(R.id.confirm);
         tv_confirm.setOnClickListener(this);
     }
-
 
     /**
      * 查询租客详情并展示在页面上

@@ -63,6 +63,16 @@
     <string name="fail_to_do">操作失败！</string>
     <string name="success_to_do">操作成功！</string>
     <string name="success_to_save">保存成功！</string>
+    <string name="w_e_fee">水电费</string>
+    <string name="last_pay_date">上次结清日期</string>
+    <string name="unpay_water_fee">待缴水费</string>
+    <string name="unpay_electricity_fee">待缴电费</string>
+    <string name="roon_charge">房租</string>
+    <string name="next_pay_date">下次结算日期</string>
+    <string name="total_fee">费用合计</string>
+    <string name="w_e_total_fee">水电费合计(元)</string>
+    <string name="balance_w_e">结清水电</string>
+    <string name="balance_room">结清房租</string>
 
 
 </resources>

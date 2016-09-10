@@ -5,24 +5,18 @@
     android:orientation="vertical"
     >
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.1dp"
+    <View style="@style/split_line"
         android:layout_marginTop="10dp"
-        android:background="@color/gray_border"/>
+        />
 
     <ListView
-        android:id="@+id/tenant_list"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:dividerHeight="0.1dp"
         android:divider="@color/gray_border"
-        android:listSelector="@android:color/transparent"
         />
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.1dp"
-        android:background="@color/gray_border"/>
+    <View style="@style/split_line"/>
 
 </LinearLayout>

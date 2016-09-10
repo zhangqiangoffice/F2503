@@ -5,6 +5,9 @@ package com.zhanglemeng.www.f2503.tenant.bean;
  */
 public class Tenant {
 
+    public static final int STATUS_ON = 1;       //租客在住
+    public static final int STATUS_OFF = 0;      //租客搬出
+
     private int id;                 //租客ID
     private String name;            //姓名
     private String sex;             //性别
@@ -15,6 +18,7 @@ public class Tenant {
     private String rent;            //每月租金
     private String payment_method;  //支付方式
     private String room;            //入住房间
+    private int status;             //租客状态
 
     public Tenant(String name, String sex, String phone, String id_card, String begin_date, String term, String rent, String payment_method, String room) {
         this.name = name;
@@ -117,5 +121,13 @@ public class Tenant {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

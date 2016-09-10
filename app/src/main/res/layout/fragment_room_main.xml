@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:orientation="vertical">
+
+    <!-- 标题栏-->
+    <include layout="@layout/include_title_bar"/>
+
+    <!-- 房间列表-->
+    <View style="@style/split_line"
+        android:layout_marginTop="10dp"
+        />
+
+    <ListView
+        android:id="@+id/room_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/gray_border"
+        android:dividerHeight="0.1dp"
+        />
+
+
+</LinearLayout>

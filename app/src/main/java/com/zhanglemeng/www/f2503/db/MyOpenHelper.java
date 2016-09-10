@@ -4,10 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.zhanglemeng.www.f2503.room.bean.Room;
+import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
+
 /**
  * Created by Administrator on 2016/6/17.
  */
 public class MyOpenHelper extends SQLiteOpenHelper{
+
 
     //建立水电费记录表
     public static final String CREATE_RECORD = "create table Record ("
@@ -18,28 +22,26 @@ public class MyOpenHelper extends SQLiteOpenHelper{
 
     //建立租客表
     public static final String CREATE_TENANT = "create table Tenant ("
-            + "id integer primary key autoincrement, "
-            + "name text, "
-            + "phone text, "
-            + "sex text, "
-            + "id_card text, "
-            + "begin_date text, "
-            + "term text, "
-            + "rent text, "
-            + "payment_method text, "
-            + "room text, "
-            + "status integer default 1)";
+            + "id integer primary key autoincrement, " //租客ID，自增
+            + "name text, "                            //姓名
+            + "phone text, "                           //电话
+            + "sex text, "                             //性别
+            + "id_card text, "                         //身份证
+            + "begin_date text, "                      //合同起期
+            + "term text, "                            //合同期限
+            + "rent text, "                            //每月租金
+            + "payment_method text, "                  //支付方式
+            + "room text, "                            //房间名
+            + "water_fee real default 0, "             //待缴水费
+            + "electric_fee real default 0, "          //待缴电费
+            + "last_pay_date, "                          //上次缴清日期
+            + "status integer default " + Tenant.STATUS_ON + ")"; //状态，默认：在住
 
     //建立房间表
     public static final String CREATE_ROOM = "create table Room ("
             + "id integer primary key autoincrement, "
             + "name text, "
-//            + "tenantid integer, "
-//            + "tenant text, "
-            + "water_fee real default 0, "
-            + "electric_fee real default 0, "
-//            + "clear_date text, "
-            + "status integer default 0)";
+            + "status integer default " + Room.STATUS_OFF + ")";
 
     public MyOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

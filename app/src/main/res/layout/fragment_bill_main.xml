@@ -90,15 +90,8 @@
         />
 
     <!-- 历史记录-->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:textColor="@color/gray_text"
+    <TextView style="@style/middle_title"
         android:text="@string/history"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         />
 
     <ListView

@@ -116,6 +116,7 @@ public class AddRoomActivity extends BaseActivity implements View.OnClickListene
             case R.id.confirm:
                 saveRoom();
                 PopupWindowUtils.destroy(popupWindow);
+                finish();
             default:
                 break;
 

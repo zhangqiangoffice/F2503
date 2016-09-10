@@ -1,0 +1,184 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 费用详情-->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <!--水电费-->
+                <TextView style="@style/middle_title"
+                    android:text="@string/w_e_fee"
+                    />
+
+                <View style="@style/split_line"/>
+
+                <!--上次结清水电费日期-->
+                <LinearLayout style="@style/white_board">
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/last_pay_date"
+                        />
+
+                    <TextView style="@style/input"
+                        android:id="@+id/last_pay_date"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"/>
+
+                <!-- 待缴水费-->
+                <LinearLayout style="@style/white_board">
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/unpay_water_fee"
+                        />
+
+                    <TextView style="@style/input"
+                        android:id="@+id/water_fee"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line" />
+
+                <!-- 待缴电费-->
+                <LinearLayout style="@style/white_board">
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/unpay_electricity_fee"
+                        />
+
+                    <TextView style="@style/input"
+                        android:id="@+id/electricity_fee"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line" />
+
+                <!--水电费合计-->
+                <LinearLayout style="@style/white_board">
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/w_e_total_fee"
+                        />
+
+                    <TextView style="@style/input"
+                        android:id="@+id/w_e_total_fee"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line" />
+
+                <!-- 房租-->
+                <TextView style="@style/middle_title"
+                    android:text="@string/roon_charge"
+                    />
+
+                <View style="@style/split_line" />
+
+
+                <!--下次结算日期-->
+                <LinearLayout style="@style/white_board">
+
+                    <TextView style="@style/input_item"
+                        android:text="@string/next_pay_date"
+                        />
+
+                    <TextView style="@style/input"
+                        android:id="@+id/next_pay_date"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"/>
+
+                <!--每月租金-->
+                <LinearLayout style="@style/white_board">
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/month_rent"
+                        />
+
+                    <TextView
+                        android:id="@+id/room_charge"
+                        style="@style/input"
+                        />
+
+                </LinearLayout>
+
+                <!-- 费用合计-->
+                <TextView style="@style/middle_title"
+                    android:text="@string/total_fee"
+                    />
+
+                <View style="@style/split_line" />
+
+
+                <!--费用合计-->
+                <LinearLayout style="@style/white_board">
+
+                    <TextView style="@style/input_item"
+                        android:text="@string/total_fee"
+                        />
+
+                    <TextView style="@style/input"
+                        android:id="@+id/total_fee"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"
+                    android:layout_marginBottom="40dp"
+                    />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/white_board"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button style="@style/bottom_btn"
+            android:id="@+id/balance_w_e"
+            android:text="@string/balance_w_e"
+            />
+
+        <Button style="@style/bottom_btn"
+            android:id="@+id/balance_room"
+            android:text="@string/balance_room"
+            android:background="@color/orange_btn"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

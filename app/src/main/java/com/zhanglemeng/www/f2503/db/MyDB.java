@@ -13,14 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/6/17.
+ * Created by 无名大强  on 2016/6/17.
  */
 public class MyDB {
+
+    //数据库相关
     public static final String DB_NAME = "f_2503";
     public static final int VERSION = 1;
-    public static final int ROOM_STATUS_IN = 1;        //房间在住
-    public static final int ROOM_STATUS_OUT = 0;       //房间空闲
 
+    //返回结果，成功或失败
+    public static final int OK = 1;
+    public static final int ERR = 0;
 
     private static MyDB myDB;
     private SQLiteDatabase db;
@@ -37,7 +40,10 @@ public class MyDB {
         return myDB;
     }
 
-    //保存水电表记录
+    /**
+     * 保存水电表记录
+     * @param record
+     */
     public void saveRecord (Record record) {
         if (record != null) {
             ContentValues values = new ContentValues();
@@ -48,7 +54,10 @@ public class MyDB {
         }
     }
 
-    //查询水电表记录
+    /**
+     * 查询水电表历史记录
+     * @return
+     */
     public List<Record> queryRecord () {
         List<Record> recordList = new ArrayList<Record>();
         Cursor cursor = db.query("Record", null, null, null, null, null,"id DESC", null);
@@ -72,7 +81,7 @@ public class MyDB {
      * @param tenant
      */
     public int saveTenant (Tenant tenant) {
-        int result = 0;
+        int result = ERR;
 
         if (tenant != null) {
 
@@ -87,12 +96,12 @@ public class MyDB {
             values.put("rent", tenant.getRent());
             values.put("payment_method", tenant.getPayment_method());
             values.put("room", tenant.getRoom());
+            values.put("last_pay_date", tenant.getBegin_date());
 
             int id = tenant.getId();
 
+            //存在ID就是编辑更新
             if (id > 0) {
-
-                //存在ID就是编辑更新
 
                 //先检查是否需要修改房间表
                 String old_room_name = "";
@@ -119,10 +128,9 @@ public class MyDB {
 
                 }
 
-
+            //不存在ID就是新建租客
             } else {
 
-                //不存在ID就是新建租客
                 long result1 = db.insert("Tenant", null, values);
 
                 //更新房间表，修改为入住状态
@@ -132,13 +140,7 @@ public class MyDB {
                 if (result1 > 0 && result2 == 1) {
                     result = 1 ;
                 }
-
             }
-
-            //更新租客表
-
-
-
         }
 
         return result;
@@ -166,7 +168,7 @@ public class MyDB {
      * @return
      */
     public int roomIn (String name) {
-        return changeRoomStatus(name, ROOM_STATUS_IN);
+        return changeRoomStatus(name, Room.STATUS_ON);
     }
 
     /**
@@ -174,7 +176,7 @@ public class MyDB {
      * @return
      */
     public int roomOut (String name) {
-        return changeRoomStatus(name, ROOM_STATUS_OUT);
+        return changeRoomStatus(name, Room.STATUS_OFF);
     }
 
     /**
@@ -189,25 +191,52 @@ public class MyDB {
         return db.update("Room", cv, "name = ?", new String[]{name});
     }
 
-    //查询空余房间的名称和id
+    /**
+     * 查询空余房间的名称和id
+     * @return
+     */
     public List<Room> queryRoomOff () {
-        return queryRoom("0");
+        return queryRoom(Room.STATUS_OFF);
     }
 
-    //查询在用的房间的名称和id
+    /**
+     * 查询在用的房间的名称和id
+     * @return
+     */
     public List<Room> queryRoomOn () {
-        return queryRoom("1");
+        return queryRoom(Room.STATUS_ON);
     }
 
-    //查询房间的名称和id
-    public List<Room> queryRoom (String stutus) {
+    public List<Room> queryRoomAll () {
         List<Room> roomList = new ArrayList<Room>();
-        Cursor cursor = db.query("Room", new String[] { "name","id" }, "status = ?", new String[]{stutus}, null, null, null);
+        Cursor cursor = db.query("Room", new String[] { "name", "id", "status" }, null, null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
-                Room room = new Room(name, id);
+                int status = cursor.getInt(cursor.getColumnIndex("status"));
+                Room room = new Room(id, name, status);
+                roomList.add(room);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return roomList;
+    }
+
+
+    /**
+     * 查询房间的名称和id
+     * @param status
+     * @return
+     */
+    public List<Room> queryRoom (int status) {
+        List<Room> roomList = new ArrayList<Room>();
+        Cursor cursor = db.query("Room", new String[] { "name","id" }, "status = ?", new String[]{String.valueOf(status)}, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                Room room = new Room(id, name);
                 roomList.add(room);
             } while (cursor.moveToNext());
         }
@@ -221,7 +250,27 @@ public class MyDB {
      */
     public List<Tenant> queryTenantOn() {
         List<Tenant> tenantList = new ArrayList<>();
-        Cursor cursor = db.query("Tenant", new String[] { "name", "id", "room" }, "status = ?", new String[]{"1"}, null, null, null);
+        Cursor cursor = db.query("Tenant", new String[] { "name", "id", "room" }, "status = ?", new String[]{String.valueOf(Tenant.STATUS_ON)}, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String room = cursor.getString(cursor.getColumnIndex("room"));
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                Tenant tenant = new Tenant(id, name, room);
+                tenantList.add(tenant);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return tenantList;
+    }
+
+    /**
+     * 查找历史租客列表
+     * @return
+     */
+    public List<Tenant> queryTenantOff() {
+        List<Tenant> tenantList = new ArrayList<>();
+        Cursor cursor = db.query("Tenant", new String[] { "name", "id", "room" }, "status = ?", new String[]{String.valueOf(Tenant.STATUS_OFF)}, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(cursor.getColumnIndex("name"));
@@ -264,14 +313,55 @@ public class MyDB {
     }
 
     /**
-     * 租客搬出，根据ID修改status为0
+     * 根据ID查询租客的费用情况
+     * @param id
+     * @return
+     */
+    public Tenant queryTenantFee(int id) {
+        Cursor cursor = db.query("Tenant", null, "id = ?", new String[]{String.valueOf(id)}, null, null, null);
+
+        Tenant tenant = new Tenant();
+        if (cursor.moveToFirst()) {
+
+            String last_pay_date = cursor.getString(cursor.getColumnIndex("last_pay_date"));
+            String water_fee = cursor.getString(cursor.getColumnIndex("water_fee"));
+            String electric_fee = cursor.getString(cursor.getColumnIndex("electric_fee"));
+            String rent = cursor.getString(cursor.getColumnIndex("rent"));
+
+            tenant = new Tenant(last_pay_date, water_fee, electric_fee, rent);
+
+        }
+        cursor.close();
+        return tenant;
+    }
+
+    /**
+     * 租客搬出，根据租客ID修改租客status为off，修改房间status为off
      * @param id
      * @return
      */
     public int tenantCheckOut (int id) {
+
+        int result = ERR;
+
+        //修改租客状态
         ContentValues cv = new ContentValues();
-        cv.put("status", 0);
-        return db.update("Tenant", cv, "id = ?", new String[] {String.valueOf(id)});
+        cv.put("status", Tenant.STATUS_OFF);
+        int result1 = db.update("Tenant", cv, "id = ?", new String[] {String.valueOf(id)});
+
+        //查找该租客的房间名称
+        String room_name = queryTenantDetail(id).getRoom();
+
+        //修改房间状态为搬出
+        int result2 = roomOut(room_name);
+
+        if (result1 > 0 && result2 > 0) {
+            result = OK;
+        }
+
+        return result;
+
+
     }
 
 }

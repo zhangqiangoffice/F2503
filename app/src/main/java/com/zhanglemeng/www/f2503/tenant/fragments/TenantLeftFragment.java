@@ -37,7 +37,7 @@ public class TenantLeftFragment extends Fragment implements AdapterView.OnItemCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.fragment_tenant_list, container, false);
+            convertView = inflater.inflate(R.layout.public_list, container, false);
             initView(convertView);
         }
         ViewGroup viewParent = (ViewGroup) convertView.getParent();
@@ -60,7 +60,7 @@ public class TenantLeftFragment extends Fragment implements AdapterView.OnItemCl
     {
 
         //获取控件
-        lv_tenant = (ListView) v.findViewById(R.id.tenant_list);
+        lv_tenant = (ListView) v.findViewById(R.id.list);
         list_tenant = new ArrayList<>() ;
         activity = getActivity();
 
