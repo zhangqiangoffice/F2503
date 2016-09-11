@@ -60,7 +60,7 @@ public class MyDB {
      */
     public List<Record> queryRecord () {
         List<Record> recordList = new ArrayList<Record>();
-        Cursor cursor = db.query("Record", null, null, null, null, null,"id DESC", null);
+        Cursor cursor = db.query("Record", new String[] { "date", "water", "electric" }, null, null, null, null,"id DESC", null);
         if (cursor.moveToFirst()) {
             do {
                 String date = cursor.getString(cursor.getColumnIndex("date"));
@@ -73,6 +73,20 @@ public class MyDB {
         cursor.close();
 
         return recordList;
+    }
+
+    /**
+     * 查询最近一次抄表日期
+     * @return 最近一次抄表日期
+     */
+    public String queryLastRecordDate() {
+        Cursor cursor = db.query("Record", new String[] { "date" }, null, null, null, null, "id DESC", null);
+        String last_record_date = "没有记录";
+        if (cursor.moveToFirst()) {
+            last_record_date = cursor.getString(cursor.getColumnIndex("date"));
+        }
+        cursor.close();
+        return last_record_date;
     }
 
 
@@ -92,11 +106,11 @@ public class MyDB {
             values.put("phone", tenant.getPhone());
             values.put("id_card", tenant.getId_card());
             values.put("begin_date", tenant.getBegin_date());
-            values.put("term", tenant.getTerm());
+            values.put("term", tenant.getTermString());
             values.put("rent", tenant.getRent());
             values.put("payment_method", tenant.getPayment_method());
             values.put("room", tenant.getRoom());
-            values.put("last_pay_date", tenant.getBegin_date());
+
 
             int id = tenant.getId();
 
@@ -123,13 +137,17 @@ public class MyDB {
                     int result5 = db.update("Tenant", values, "id = ?", new String[]{String.valueOf(id)});
 
                     if ( result3 > 0 && result4 > 0 && result5 > 0) {
-                        result = 1;
+                        result = OK;
                     }
 
                 }
 
             //不存在ID就是新建租客
             } else {
+
+                //新建租客时，水电上次结清日期和房租待结算日期都设定为当前日期
+                values.put("last_pay_date", tenant.getBegin_date());
+                values.put("next_pay_date", tenant.getBegin_date());
 
                 long result1 = db.insert("Tenant", null, values);
 
@@ -138,7 +156,7 @@ public class MyDB {
 
                 //都成功才成功
                 if (result1 > 0 && result2 == 1) {
-                    result = 1 ;
+                    result = OK ;
                 }
             }
         }
@@ -207,6 +225,10 @@ public class MyDB {
         return queryRoom(Room.STATUS_ON);
     }
 
+    /**
+     * 查询所有房间列表
+     * @return 所有房间列表
+     */
     public List<Room> queryRoomAll () {
         List<Room> roomList = new ArrayList<Room>();
         Cursor cursor = db.query("Room", new String[] { "name", "id", "status" }, null, null, null, null, null);
@@ -323,14 +345,15 @@ public class MyDB {
         Tenant tenant = new Tenant();
         if (cursor.moveToFirst()) {
 
-            String last_pay_date = cursor.getString(cursor.getColumnIndex("last_pay_date"));
             String water_fee = cursor.getString(cursor.getColumnIndex("water_fee"));
             String electric_fee = cursor.getString(cursor.getColumnIndex("electric_fee"));
             String rent = cursor.getString(cursor.getColumnIndex("rent"));
             String balance_times = cursor.getString(cursor.getColumnIndex("balance_times"));
             String payment_method = cursor.getString(cursor.getColumnIndex("payment_method"));
+            String last_pay_date = cursor.getString(cursor.getColumnIndex("last_pay_date"));
+            String next_pay_date = cursor.getString(cursor.getColumnIndex("next_pay_date"));
 
-            tenant = new Tenant(last_pay_date, water_fee, electric_fee, rent, balance_times, payment_method);
+            tenant = new Tenant(last_pay_date, water_fee, electric_fee, rent, balance_times, payment_method, next_pay_date);
 
         }
         cursor.close();
@@ -363,7 +386,8 @@ public class MyDB {
 
         return result;
 
-
     }
+
+
 
 }

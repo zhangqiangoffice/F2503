@@ -40,7 +40,7 @@ public class DetailFeeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.fragment_detail_basic, container, false);
+            convertView = inflater.inflate(R.layout.fragment_detail_fee, container, false);
             initView(convertView);
 
         }
@@ -62,8 +62,10 @@ public class DetailFeeFragment extends Fragment {
 
         //获取控件，房租
         tv_next_pay_date = (TextView) v.findViewById(R.id.next_pay_date);
+        tv_balance_times = (TextView) v.findViewById(R.id.balance_times);
         tv_rent_total = (TextView) v.findViewById(R.id.rent_total);
         tv_total_fee = (TextView) v.findViewById(R.id.total_fee);
+
 
 
         //初始化父activity
@@ -80,21 +82,27 @@ public class DetailFeeFragment extends Fragment {
 
     }
 
+    /**
+     * 展示详情
+     */
     private void showFee() {
 
-        //数据库操作
+        //数据库操作，获取租客对象
         tenant = myDB.queryTenantFee(tenant_id);
+        //数据库操作，最近抄表日期
+        String last_record_date = myDB.queryLastRecordDate();
 
-//        tv_last_pay_date.setText(tenant.getLast_pay_date());
-        tv_water_fee.setText(tenant.getWater_fee());
-        tv_electricity_fee.setText(tenant.getElectric_fee());
+        //水电费
+        tv_last_pay_date.setText(tenant.getLast_pay_date());
+        tv_last_record_date.setText(last_record_date);
+        tv_water_fee.setText(tenant.getWater_feeString());
+        tv_electricity_fee.setText(tenant.getElectric_feeString());
+        tv_w_e_total_fee.setText(tenant.getW_e_total_feeString());
 
-
-        tv_next_pay_date.setText("");
-        tv_rent_total.setText(tenant.getRent());
-
-
-
+        //房租
+        tv_next_pay_date.setText(tenant.getNext_pay_date());
+        tv_balance_times.setText(tenant.getBalance_timesString());
+        tv_rent_total.setText(tenant.getRent_totalString());
 
     }
 

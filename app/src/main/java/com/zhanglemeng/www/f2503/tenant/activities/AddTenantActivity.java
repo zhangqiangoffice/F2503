@@ -152,9 +152,9 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         et_id_card.setText(tenant.getId_card());
 
         et_begin_date.setText(tenant.getBegin_date());
-        et_term_input.setText(tenant.getTerm());
-        et_rent_input.setText(tenant.getRent());
-        et_payment_method.setText(tenant.getPayment_method());
+        et_term_input.setText(tenant.getTermString());
+        et_rent_input.setText(tenant.getRentString());
+        et_payment_method.setText(tenant.getPayment_methodString());
 
         et_check_in_room.setText(tenant.getRoom());
     }
@@ -265,8 +265,9 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         }
 
         //数据库操作
-        myDB.saveTenant(tenant);
-        T.showShort(this, "保存成功！");
+        if (myDB.saveTenant(tenant) > 0) {
+            T.showShort(this, "保存成功！");
+        }
     }
 
     @Override
