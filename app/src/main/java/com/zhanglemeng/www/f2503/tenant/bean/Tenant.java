@@ -112,11 +112,20 @@ public class Tenant {
     }
 
     /**
-     * 返回字符串类型的水电费合计
+     * 返回字符串类型的待缴房租
      * @return
      */
     public String getRent_totalString() {
         double total = rent * payment_method;
+        return String.valueOf(total);
+    }
+
+    /**
+     * 返回字符串类型的费用合计
+     * @return
+     */
+    public String getTotal_feeString() {
+        double total = rent * payment_method + water_fee + electric_fee;
         return String.valueOf(total);
     }
 

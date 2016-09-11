@@ -7,19 +7,33 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.db.MyDB;
+import com.zhanglemeng.www.f2503.tenant.adapters.RoomAvailableAdapter;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
+import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
 
 /**
  * Created by inkun on 16/9/8.
  */
-public class DetailFeeFragment extends Fragment {
+public class DetailFeeFragment extends Fragment implements View.OnClickListener{
+
+    //结清两种费用的常量
+    private final int BALANCE_ROOM = 0;
+    private final int BALANCE_WE = 1;
 
     private View convertView;
     private Activity activity;
+    private PopupWindow popupWindow;
+
+    //结清费用种类
+    private int balance;
+
 
     //水电费
     private TextView tv_last_pay_date, tv_last_record_date, tv_water_fee, tv_electricity_fee, tv_w_e_total_fee;
@@ -29,6 +43,9 @@ public class DetailFeeFragment extends Fragment {
 
     //费用合计
     private TextView tv_total_fee;
+
+    //底部按钮
+    private Button btn_balance_w_e, btn_balance_room;
 
     //数据库相关
     private MyDB myDB;
@@ -66,7 +83,9 @@ public class DetailFeeFragment extends Fragment {
         tv_rent_total = (TextView) v.findViewById(R.id.rent_total);
         tv_total_fee = (TextView) v.findViewById(R.id.total_fee);
 
-
+        //获取控件，底部按钮
+        btn_balance_w_e = (Button) v.findViewById(R.id.balance_w_e);
+        btn_balance_room = (Button) v.findViewById(R.id.balance_room);
 
         //初始化父activity
         activity = getActivity();
@@ -79,6 +98,10 @@ public class DetailFeeFragment extends Fragment {
 
         //展示详情
         showFee();
+
+        //绑定点击事件
+        btn_balance_room.setOnClickListener(this);
+        btn_balance_w_e.setOnClickListener(this);
 
     }
 
@@ -103,7 +126,67 @@ public class DetailFeeFragment extends Fragment {
         tv_next_pay_date.setText(tenant.getNext_pay_date());
         tv_balance_times.setText(tenant.getBalance_timesString());
         tv_rent_total.setText(tenant.getRent_totalString());
+        tv_total_fee.setText(tenant.getTotal_feeString());
 
     }
 
+    /**
+     * 弹出结清房租或结清水电确认框
+     * @param v
+     */
+    private void showConfirmPopup(View v) {
+        popupWindow = PopupWindowUtils.newPop(activity, R.layout.popup_confirm, v);
+        TextView tv_confirm = (TextView) popupWindow.getContentView().findViewById(R.id.confirm);
+        tv_confirm.setOnClickListener(this);
+    }
+
+    /**
+     * 结清房租操作
+     *
+     */
+    private void balanceRoom() {
+
+    }
+
+    /**
+     * 结清水电操作
+     */
+    private void balanceWE() {
+
+        //清空待缴水电费、更新上次结清日期
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            //点击底部“结清房租”按钮，弹出确认框
+            case R.id.balance_room:
+                balance = BALANCE_ROOM;
+                showConfirmPopup(v);
+                break;
+
+            //点击底部“结清水电”按钮，弹出确认框
+            case R.id.balance_w_e:
+                balance = BALANCE_WE;
+                showConfirmPopup(v);
+                break;
+
+            //点击确认框的“确定”按钮
+            case R.id.confirm:
+                if (balance == BALANCE_ROOM) {
+                    balanceRoom();
+                } else if (balance == BALANCE_WE) {
+                    balanceWE();
+                }
+                break;
+
+            default:
+                break;
+
+
+        }
+    }
 }
