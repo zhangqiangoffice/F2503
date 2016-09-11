@@ -92,31 +92,21 @@
             />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/gray_border"
-        />
+    <View style="@style/split_line"/>
 
     <!-- 身份证-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
+    <LinearLayout style="@style/white_board">
 
         <TextView
             style="@style/input_item"
             android:text="@string/id_card"
             />
 
-        <EditText
+        <EditText style="@style/input"
             android:id="@+id/id_card"
-            style="@style/input"
-
             />
+
     </LinearLayout>
 
     <View
@@ -127,8 +117,7 @@
 
 
     <!-- 合同信息-->
-    <TextView
-        style="@style/middle_title"
+    <TextView style="@style/middle_title"
         android:text="@string/contract_info"
         />
 
@@ -156,6 +145,7 @@
             style="@style/input"
             android:focusable="false"
             />
+
     </LinearLayout>
 
     <View
@@ -177,11 +167,11 @@
             android:text="@string/contract_term"
             />
 
-        <EditText
+        <EditText style="@style/input"
             android:id="@+id/term_input"
-            style="@style/input"
-
+            android:inputType="number"
             />
+
     </LinearLayout>
 
     <View
@@ -191,47 +181,31 @@
         />
 
     <!-- 每月租金-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
+    <LinearLayout style="@style/white_board">
 
-        <TextView
-            style="@style/input_item"
+        <TextView style="@style/input_item"
             android:text="@string/month_rent"
             />
 
-        <EditText
+        <EditText style="@style/input"
             android:id="@+id/rent_input"
-            style="@style/input"
+            android:inputType="numberDecimal"
 
             />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/gray_border"
-        />
+    <View style="@style/split_line"/>
 
     <!-- 付款方式-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
+    <LinearLayout style="@style/white_board">
 
-        <TextView
-            style="@style/input_item"
+        <TextView style="@style/input_item"
             android:text="@string/payment_method"
             />
 
-        <EditText
+        <EditText style="@style/input"
             android:id="@+id/payment_method"
-            style="@style/input"
+            android:inputType="number"
 
             />
     </LinearLayout>

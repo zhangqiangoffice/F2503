@@ -18,8 +18,25 @@ public class Tenant {
     private String rent;            //每月租金
     private String payment_method;  //支付方式
     private String room;            //入住房间
-    private int status;             //租客状态
+    private int status;          //租客状态
+    private String last_pay_date;   //上次缴清水电费日期
+    private String balance_times;   //房租已结算次数
+    private String water_fee;       //待缴水费
+    private String electric_fee;    //待缴电费
 
+
+    /**
+     * 以全部的字符串参数形式新建租客，用于新增租客页面
+     * @param name
+     * @param sex
+     * @param phone
+     * @param id_card
+     * @param begin_date
+     * @param term
+     * @param rent
+     * @param payment_method
+     * @param room
+     */
     public Tenant(String name, String sex, String phone, String id_card, String begin_date, String term, String rent, String payment_method, String room) {
         this.name = name;
         this.sex = sex;
@@ -32,6 +49,15 @@ public class Tenant {
         this.room = room;
     }
 
+    public Tenant(String last_pay_date, String water_fee, String electric_fee, String rent, String balance_times, String payment_method) {
+        this.last_pay_date = last_pay_date;
+        this.water_fee = water_fee;
+        this.electric_fee = electric_fee;
+        this.rent = rent;
+        this.balance_times = balance_times;
+        this.payment_method = payment_method;
+    }
+
     public Tenant(int id, String name, String room) {
         this.id = id;
         this.name = name;
@@ -42,21 +68,12 @@ public class Tenant {
 
     }
 
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getPayment_method() {
-        return payment_method;
-    }
-
-    public void setPayment_method(String payment_method) {
-        this.payment_method = payment_method;
     }
 
     public String getName() {
@@ -115,6 +132,14 @@ public class Tenant {
         this.rent = rent;
     }
 
+    public String getPayment_method() {
+        return payment_method;
+    }
+
+    public void setPayment_method(String payment_method) {
+        this.payment_method = payment_method;
+    }
+
     public String getRoom() {
         return room;
     }
@@ -129,5 +154,37 @@ public class Tenant {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getLast_pay_date() {
+        return last_pay_date;
+    }
+
+    public void setLast_pay_date(String last_pay_date) {
+        this.last_pay_date = last_pay_date;
+    }
+
+    public String getBalance_times() {
+        return balance_times;
+    }
+
+    public void setBalance_times(String balance_times) {
+        this.balance_times = balance_times;
+    }
+
+    public String getWater_fee() {
+        return water_fee;
+    }
+
+    public void setWater_fee(String water_fee) {
+        this.water_fee = water_fee;
+    }
+
+    public String getElectric_fee() {
+        return electric_fee;
+    }
+
+    public void setElectric_fee(String electric_fee) {
+        this.electric_fee = electric_fee;
     }
 }

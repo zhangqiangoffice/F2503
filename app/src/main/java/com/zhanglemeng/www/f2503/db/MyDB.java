@@ -327,8 +327,10 @@ public class MyDB {
             String water_fee = cursor.getString(cursor.getColumnIndex("water_fee"));
             String electric_fee = cursor.getString(cursor.getColumnIndex("electric_fee"));
             String rent = cursor.getString(cursor.getColumnIndex("rent"));
+            String balance_times = cursor.getString(cursor.getColumnIndex("balance_times"));
+            String payment_method = cursor.getString(cursor.getColumnIndex("payment_method"));
 
-            tenant = new Tenant(last_pay_date, water_fee, electric_fee, rent);
+            tenant = new Tenant(last_pay_date, water_fee, electric_fee, rent, balance_times, payment_method);
 
         }
         cursor.close();

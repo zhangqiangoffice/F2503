@@ -22,10 +22,10 @@ public class DetailFeeFragment extends Fragment {
     private Activity activity;
 
     //水电费
-    private TextView tv_last_pay_date, tv_water_fee, tv_electricity_fee, tv_w_e_total_fee;
+    private TextView tv_last_pay_date, tv_last_record_date, tv_water_fee, tv_electricity_fee, tv_w_e_total_fee;
 
     //房租
-    private TextView tv_next_pay_date, tv_room_charge;
+    private TextView tv_next_pay_date, tv_balance_times, tv_rent_total;
 
     //费用合计
     private TextView tv_total_fee;
@@ -53,13 +53,16 @@ public class DetailFeeFragment extends Fragment {
 
     private void initView(View v) {
 
-        //获取控件
+        //获取控件，水电费
         tv_last_pay_date = (TextView) v.findViewById(R.id.last_pay_date);
+        tv_last_record_date = (TextView) v.findViewById(R.id.last_record_date);
         tv_water_fee = (TextView) v.findViewById(R.id.water_fee);
         tv_electricity_fee = (TextView) v.findViewById(R.id.electricity_fee);
         tv_w_e_total_fee = (TextView) v.findViewById(R.id.w_e_total_fee);
+
+        //获取控件，房租
         tv_next_pay_date = (TextView) v.findViewById(R.id.next_pay_date);
-        tv_room_charge = (TextView) v.findViewById(R.id.room_charge);
+        tv_rent_total = (TextView) v.findViewById(R.id.rent_total);
         tv_total_fee = (TextView) v.findViewById(R.id.total_fee);
 
 
@@ -81,6 +84,17 @@ public class DetailFeeFragment extends Fragment {
 
         //数据库操作
         tenant = myDB.queryTenantFee(tenant_id);
+
+//        tv_last_pay_date.setText(tenant.getLast_pay_date());
+        tv_water_fee.setText(tenant.getWater_fee());
+        tv_electricity_fee.setText(tenant.getElectric_fee());
+
+
+        tv_next_pay_date.setText("");
+        tv_rent_total.setText(tenant.getRent());
+
+
+
 
     }
 

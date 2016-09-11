@@ -43,6 +43,23 @@
 
                 <View style="@style/split_line"/>
 
+                <!--最近抄表日期-->
+                <LinearLayout style="@style/white_board">
+
+                    <TextView
+                        style="@style/input_item"
+                        android:text="@string/last_record_date"
+                        />
+
+                    <TextView style="@style/input"
+                        android:id="@+id/last_record_date"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"/>
+
+
                 <!-- 待缴水费-->
                 <LinearLayout style="@style/white_board">
 
@@ -99,7 +116,7 @@
                 <View style="@style/split_line" />
 
 
-                <!--下次结算日期-->
+                <!--待结算日期-->
                 <LinearLayout style="@style/white_board">
 
                     <TextView style="@style/input_item"
@@ -114,20 +131,38 @@
 
                 <View style="@style/split_line"/>
 
-                <!--每月租金-->
+                <!--已结算次数-->
                 <LinearLayout style="@style/white_board">
 
                     <TextView
                         style="@style/input_item"
-                        android:text="@string/month_rent"
+                        android:text="@string/balance_times"
                         />
 
-                    <TextView
-                        android:id="@+id/room_charge"
-                        style="@style/input"
+                    <TextView style="@style/input"
+                        android:id="@+id/balance_times"
                         />
 
                 </LinearLayout>
+
+                <View style="@style/split_line"/>
+
+                <!--房租合计-->
+                <LinearLayout style="@style/white_board">
+
+                    <TextView style="@style/input_item"
+                        android:text="@string/rent_total"
+                        />
+
+                    <TextView style="@style/input"
+                        android:id="@+id/rent_total"
+                        />
+
+                </LinearLayout>
+
+                <View style="@style/split_line"/>
+
+
 
                 <!-- 费用合计-->
                 <TextView style="@style/middle_title"

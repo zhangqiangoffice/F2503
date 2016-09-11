@@ -34,7 +34,8 @@ public class MyOpenHelper extends SQLiteOpenHelper{
             + "room text, "                            //房间名
             + "water_fee real default 0, "             //待缴水费
             + "electric_fee real default 0, "          //待缴电费
-            + "last_pay_date, "                          //上次缴清日期
+            + "last_pay_date text default 尚未结算, "                   //上次缴清水电费日期
+            + "balance_times integer default 0, "      //房租已结算次数
             + "status integer default " + Tenant.STATUS_ON + ")"; //状态，默认：在住
 
     //建立房间表
