@@ -435,11 +435,12 @@ public class MyDB {
     }
 
     public int updateTenantWE(int id, double water, double electric) {
-        ContentValues cv = new ContentValues();
-        cv.put("water_fee", "water_fee + " + water);
-        cv.put("electric_fee", "electric_fee + " + electric);
+        String update_tenant = "update Tenant "
+                + "set water_fee = water_fee + 10 " ;
 
-        return db.update("Tenant", cv, "id = ?", new String[] {String.valueOf(id)});
+        db.execSQL(update_tenant);
+
+        return OK;
     }
 
     /**
