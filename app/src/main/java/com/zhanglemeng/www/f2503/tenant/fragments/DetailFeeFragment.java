@@ -13,10 +13,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.zhanglemeng.www.f2503.R;
+import com.zhanglemeng.www.f2503.bill.bean.Payment;
 import com.zhanglemeng.www.f2503.db.MyDB;
 import com.zhanglemeng.www.f2503.tenant.adapters.RoomAvailableAdapter;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
 import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
+import com.zhanglemeng.www.f2503.utils.T;
 
 /**
  * Created by inkun on 16/9/8.
@@ -154,6 +156,19 @@ public class DetailFeeFragment extends Fragment implements View.OnClickListener{
     private void balanceWE() {
 
         //清空待缴水电费、更新上次结清日期
+        int result1 = myDB.tenantBalanceWE(tenant_id);
+
+        //生成缴费记录
+        Payment payment = new Payment(tenant_id, Payment.TYPE_W_E, tenant.getW_e_total_feeString());
+        int result2 = myDB.addPayment(payment);
+
+        if (result1 > 0 && result2 > 0) {
+            showFee();
+            T.showShort(activity , R.string.success_to_do);
+        } else {
+            T.showShort(activity, R.string.fail_to_do);
+        }
+
 
     }
 

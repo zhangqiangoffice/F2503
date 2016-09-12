@@ -5,9 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.zhanglemeng.www.f2503.bill.bean.Payment;
 import com.zhanglemeng.www.f2503.bill.bean.Record;
 import com.zhanglemeng.www.f2503.room.bean.Room;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
+import com.zhanglemeng.www.f2503.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -388,6 +390,45 @@ public class MyDB {
 
     }
 
+    /**
+     * 清空水电费及上次缴费日期
+     * @param id
+     * @return
+     */
+    public int tenantBalanceWE(int id) {
 
+        ContentValues cv = new ContentValues();
+        cv.put("water_fee", 0);
+        cv.put("electric_fee", 0);
+        cv.put("last_pay_date", DateUtils.NowDate());
+
+        return db.update("Tenant", cv, "id = ?", new String[] {String.valueOf(id)});
+    }
+
+    /**
+     * 新增缴费记录
+     * @param payment
+     * @return
+     */
+    public int addPayment(Payment payment) {
+
+
+        int result = ERR;
+
+        //变量赋值，日期默认为当前日期
+        ContentValues values = new ContentValues();
+        values.put("tenant_id", payment.getTenant_id());
+        values.put("date", DateUtils.NowDate());
+        values.put("type", payment.getType());
+        values.put("money", payment.getMoney());
+
+        long result1 = db.insert("Payment", null, values);
+
+        if (result1 > 0 ) {
+            result = OK;
+        }
+
+        return result;
+    }
 
 }

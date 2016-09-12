@@ -13,14 +13,22 @@ import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
 public class MyOpenHelper extends SQLiteOpenHelper{
 
 
-    //建立水电费记录表
+    //建立水电费记录表的SQL语句字符串
     public static final String CREATE_RECORD = "create table Record ("
             + "id integer primary key autoincrement, "
             + "date text, "
             + "water integer, "
             + "electric integer)";
 
-    //建立租客表
+    //建立缴费记录表的SQL语句字符串
+    public static final String CREATE_PAYMENT = "create table Payment ("
+            + "id integer primary key autoincrement, "
+            + "date text, "
+            + "tenant_id integer, "
+            + "type integer, "
+            + "money real)";
+
+    //建立租客表的SQL语句字符串
     public static final String CREATE_TENANT = "create table Tenant ("
             + "id integer primary key autoincrement, " //租客ID，自增
             + "name text, "                            //姓名
@@ -39,7 +47,7 @@ public class MyOpenHelper extends SQLiteOpenHelper{
             + "balance_times integer default 0, "      //房租已结算次数
             + "status integer default " + Tenant.STATUS_ON + ")"; //状态，默认：在住
 
-    //建立房间表
+    //建立房间表的SQL语句字符串
     public static final String CREATE_ROOM = "create table Room ("
             + "id integer primary key autoincrement, "
             + "name text, "
@@ -54,6 +62,7 @@ public class MyOpenHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_RECORD);
         db.execSQL(CREATE_TENANT);
         db.execSQL(CREATE_ROOM);
+        db.execSQL(CREATE_PAYMENT);
         db.execSQL("insert into Room (name) values ('1号房');");
         db.execSQL("insert into Room (name) values ('2号房');");
         db.execSQL("insert into Room (name) values ('3号房');");

@@ -18,6 +18,7 @@ import com.zhanglemeng.www.f2503.db.MyDB;
 import com.zhanglemeng.www.f2503.room.bean.Room;
 import com.zhanglemeng.www.f2503.tenant.adapters.RoomAvailableAdapter;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
+import com.zhanglemeng.www.f2503.utils.DateUtils;
 import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
 import com.zhanglemeng.www.f2503.utils.T;
 import com.zhanglemeng.www.f2503.utils.whell.TimePopupWindow;
@@ -57,7 +58,7 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
 
     //日期选择控件
     private TimePopupWindow pwTime;
-    private SimpleDateFormat format;
+//    private SimpleDateFormat format;
 
     //是否是编辑
     private boolean is_edit;
@@ -117,24 +118,18 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
 
         //初始化日期选择控件
         pwTime = new TimePopupWindow(this, TimePopupWindow.Type.YEAR_MONTH_DAY, this);
-        format = new SimpleDateFormat("yyyy-MM-dd");
-        format.setLenient(false);
+//        format = new SimpleDateFormat("yyyy-MM-dd");
+//        format.setLenient(false);
 
         //日期选择控件选择后
         pwTime.setOnTimeSelectListener(new TimePopupWindow.OnTimeSelectListener() {
 
             @Override
             public void onTimeSelect(Date date) {
-                et_begin_date.setText(getTime(date));
+                et_begin_date.setText(DateUtils.DateString(date));
             }
         });
 
-    }
-
-    //时间转换
-    public static String getTime(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(date);
     }
 
     /**
