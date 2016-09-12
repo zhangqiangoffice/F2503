@@ -134,8 +134,7 @@
                 <!--已结算次数-->
                 <LinearLayout style="@style/white_board">
 
-                    <TextView
-                        style="@style/input_item"
+                    <TextView style="@style/input_item"
                         android:text="@string/balance_times"
                         />
 

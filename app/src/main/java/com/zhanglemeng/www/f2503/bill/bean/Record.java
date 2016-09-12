@@ -20,14 +20,10 @@ public class Record {
         this.electric = electric;
     }
 
-    public Record() {
-
-        //默认生成当前日期的记录
-        SimpleDateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
-        Date curDate = new Date(System.currentTimeMillis());
-        String str_date = formatter.format(curDate);
-
-        this.date = str_date;
+    public Record(String date, String water, String electric) {
+        this.date = date;
+        this.water = Integer.valueOf(water);
+        this.electric = Integer.valueOf(electric);
     }
 
     public int getId() {

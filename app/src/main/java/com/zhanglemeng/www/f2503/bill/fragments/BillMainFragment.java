@@ -16,6 +16,7 @@ import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.bill.adapters.RecordHistoryAdapter;
 import com.zhanglemeng.www.f2503.bill.bean.Record;
 import com.zhanglemeng.www.f2503.db.MyDB;
+import com.zhanglemeng.www.f2503.utils.DateUtils;
 import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
 import com.zhanglemeng.www.f2503.utils.T;
 
@@ -140,13 +141,16 @@ public class BillMainFragment extends Fragment implements View.OnClickListener {
     private void saveRecord() {
 
         //生成Record对象
-        record = new Record();
-        record.setWater(Integer.parseInt(str_water_input));
-        record.setElectric(Integer.parseInt(str_electricity_input));
+        record = new Record(DateUtils.NowDate(), str_water_input, str_electricity_input);
 
         //数据库操作
-        myDB.saveRecord(record);
-        T.showShort(activity, R.string.success_to_save);
+        int result = myDB.saveRecord(record);
+
+        if (result > 0) {
+            T.showShort(activity, R.string.success_to_save);
+        } else {
+            T.showLong(activity, R.string.fail_to_do);
+        }
 
     }
 

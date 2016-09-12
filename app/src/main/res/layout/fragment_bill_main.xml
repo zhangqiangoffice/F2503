@@ -15,80 +15,33 @@
     <!-- 水表录入-->
     <View style="@style/split_line" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
+    <LinearLayout style="@style/white_board">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
+        <TextView style="@style/input_item"
             android:text="@string/water_display"
-            android:textSize="16sp"
-            android:padding="10dp"
-            android:textColor="@color/black_text"
             />
 
-        <EditText
+        <EditText style="@style/input"
             android:id="@+id/water_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="@string/input"
-            android:background="@null"
-            android:textColor="@color/black_text"
-            android:padding="10dp"
-            android:textSize="16sp"
-
             />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/gray_border"
-        />
+    <View style="@style/split_line" />
 
     <!-- 电表录入-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
+    <LinearLayout style="@style/white_board">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
+        <TextView style="@style/input_item"
             android:text="@string/electricity_display"
-            android:textSize="16sp"
-            android:padding="10dp"
-            android:textColor="@color/black_text"
             />
 
-        <EditText
+        <EditText style="@style/input"
             android:id="@+id/electricity_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="@string/input"
-            android:background="@null"
-            android:textColor="@color/black_text"
-            android:padding="10dp"
-            android:textSize="16sp"
 
             />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/gray_border"
-        />
+    <View style="@style/split_line" />
 
     <!-- 历史记录-->
     <TextView style="@style/middle_title"

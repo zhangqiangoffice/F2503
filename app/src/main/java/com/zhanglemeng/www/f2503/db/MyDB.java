@@ -46,14 +46,46 @@ public class MyDB {
      * 保存水电表记录
      * @param record
      */
-    public void saveRecord (Record record) {
+    public int saveRecord (Record record) {
+        int result = ERR;
+        long result1 = 0;
+        int result2 = 1;
         if (record != null) {
             ContentValues values = new ContentValues();
             values.put("water", record.getWater());
             values.put("electric", record.getElectric());
             values.put("date", record.getDate());
-            db.insert("Record", null, values);
+            result1 = db.insert("Record", null, values);
         }
+
+        //获取在住租客列表
+        List<Tenant> list = queryTenantOn();
+
+        //在住租客人数
+        int n = list.size();
+
+        //如果存在租客
+        if (n > 0) {
+
+            //上一次的历史记录
+            Record last_record = queryLastRecord();
+
+            double ave_water = ((record.getWater() - last_record.getWater()) / n ) * 0.5653;
+            double ave_electric = ((record.getElectric() - last_record.getElectric()) / n) *3.2;
+
+            for (int i = 0; i < n; i++) {
+                result2 = updateTenantWE(list.get(i).getId(), ave_water, ave_electric);
+                if(result2 <= 0 ) {
+                    break;
+                }
+            }
+        }
+
+        if (result1 > 0 && result2 > 0) {
+            result = OK;
+        }
+
+        return result;
     }
 
     /**
@@ -76,21 +108,6 @@ public class MyDB {
 
         return recordList;
     }
-
-    /**
-     * 查询最近一次抄表日期
-     * @return 最近一次抄表日期
-     */
-    public String queryLastRecordDate() {
-        Cursor cursor = db.query("Record", new String[] { "date" }, null, null, null, null, "id DESC", null);
-        String last_record_date = "没有记录";
-        if (cursor.moveToFirst()) {
-            last_record_date = cursor.getString(cursor.getColumnIndex("date"));
-        }
-        cursor.close();
-        return last_record_date;
-    }
-
 
     /**
      * 更新租客表，保存或更新租客信息、合同信息，调整房间状态，操作成功就返回 1，失败返回 0
@@ -164,6 +181,33 @@ public class MyDB {
         }
 
         return result;
+    }
+
+
+    /**
+     * 查询最近一次抄表日期
+     * @return 最近一次抄表日期
+     */
+    public String queryLastRecordDate() {
+        Record record = queryLastRecord();
+        return record.getDate();
+    }
+
+    /**
+     * 查询最近一次抄表记录
+     * @return 最近一次抄表记录
+     */
+    public Record queryLastRecord() {
+        Record record = new Record("没有记录", 0, 0);
+        Cursor cursor = db.query("Record", new String[] { "date", "water", "electric" }, null, null, null, null, "id DESC", "1");
+        if (cursor.moveToFirst()) {
+            String date = cursor.getString(cursor.getColumnIndex("date"));
+            int water = cursor.getInt(cursor.getColumnIndex("water"));
+            int electric = cursor.getInt(cursor.getColumnIndex("electric"));
+            record = new Record(date, water, electric);
+        }
+        cursor.close();
+        return record;
     }
 
 
@@ -388,6 +432,14 @@ public class MyDB {
 
         return result;
 
+    }
+
+    public int updateTenantWE(int id, double water, double electric) {
+        ContentValues cv = new ContentValues();
+        cv.put("water_fee", "water_fee + " + water);
+        cv.put("electric_fee", "electric_fee + " + electric);
+
+        return db.update("Tenant", cv, "id = ?", new String[] {String.valueOf(id)});
     }
 
     /**
