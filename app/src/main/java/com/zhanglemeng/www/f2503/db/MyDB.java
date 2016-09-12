@@ -406,13 +406,32 @@ public class MyDB {
     }
 
     /**
+     * 结算房租，更新已结算次数和下次结算日期
+     * @param id
+     * @param times
+     * @param next_date
+     * @return
+     */
+    public int tenantBalanceRoom(int id, int times, String next_date) {
+
+        //更新结算次数和下次结算日期
+        ContentValues cv = new ContentValues();
+        cv.put("balance_times", times);
+        cv.put("next_pay_date", next_date);
+
+        return db.update("Tenant", cv, "id = ?", new String[] {String.valueOf(id)});
+
+
+    }
+
+    /**
      * 新增缴费记录
      * @param payment
      * @return
      */
     public int addPayment(Payment payment) {
 
-
+        //初始化返回值，默认为0
         int result = ERR;
 
         //变量赋值，日期默认为当前日期

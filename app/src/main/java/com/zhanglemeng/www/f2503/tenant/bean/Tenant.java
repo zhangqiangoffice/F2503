@@ -1,5 +1,10 @@
 package com.zhanglemeng.www.f2503.tenant.bean;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by 无名大强 on 2016/6/17.
  */
@@ -137,8 +142,36 @@ public class Tenant {
         return String.valueOf(term);
     }
 
+    /**
+     * 返回支付方式字符串
+     * @return
+     */
     public String getPayment_methodString() {
         return String.valueOf(payment_method);
+    }
+
+    /**
+     * 获取下一次待缴费日期
+     * @return
+     */
+    public String nextNext_pay_date() {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date next_date = null;
+        try {
+            next_date = formatter.parse(next_pay_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(next_date);
+
+        //下面的就是把当前日期加支付方式
+        cal.add(Calendar.MONTH, payment_method);
+
+        next_date = cal.getTime();
+
+        return formatter.format(next_date);
     }
 
     public int getId() {

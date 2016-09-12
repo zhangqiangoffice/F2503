@@ -8,14 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.zhanglemeng.www.f2503.R;
 import com.zhanglemeng.www.f2503.bill.bean.Payment;
 import com.zhanglemeng.www.f2503.db.MyDB;
-import com.zhanglemeng.www.f2503.tenant.adapters.RoomAvailableAdapter;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
 import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
 import com.zhanglemeng.www.f2503.utils.T;
@@ -128,7 +126,10 @@ public class DetailFeeFragment extends Fragment implements View.OnClickListener{
         tv_next_pay_date.setText(tenant.getNext_pay_date());
         tv_balance_times.setText(tenant.getBalance_timesString());
         tv_rent_total.setText(tenant.getRent_totalString());
+
+        //费用合计
         tv_total_fee.setText(tenant.getTotal_feeString());
+
 
     }
 
@@ -148,6 +149,20 @@ public class DetailFeeFragment extends Fragment implements View.OnClickListener{
      */
     private void balanceRoom() {
 
+        //生成缴费记录
+        Payment payment = new Payment(tenant_id, Payment.TYPE_ROOM, tenant.getRent_totalString());
+        int result1 = myDB.addPayment(payment);
+
+        //更新待结算日期和已结算次数
+        int times = tenant.getBalance_times() + 1;
+        int result2 = myDB.tenantBalanceRoom(tenant_id, times, tenant.nextNext_pay_date() );
+
+        if (result1 > 0 && result2 > 0) {
+            showFee();
+            T.showShort(activity , R.string.success_to_do);
+        } else {
+            T.showShort(activity, R.string.fail_to_do);
+        }
     }
 
     /**
@@ -155,13 +170,14 @@ public class DetailFeeFragment extends Fragment implements View.OnClickListener{
      */
     private void balanceWE() {
 
-        //清空待缴水电费、更新上次结清日期
-        int result1 = myDB.tenantBalanceWE(tenant_id);
-
         //生成缴费记录
         Payment payment = new Payment(tenant_id, Payment.TYPE_W_E, tenant.getW_e_total_feeString());
-        int result2 = myDB.addPayment(payment);
+        int result1 = myDB.addPayment(payment);
 
+        //清空待缴水电费、更新上次结清日期
+        int result2 = myDB.tenantBalanceWE(tenant_id);
+
+        //两步成功，才算成功，更新视图展示
         if (result1 > 0 && result2 > 0) {
             showFee();
             T.showShort(activity , R.string.success_to_do);
@@ -196,6 +212,7 @@ public class DetailFeeFragment extends Fragment implements View.OnClickListener{
                 } else if (balance == BALANCE_WE) {
                     balanceWE();
                 }
+                PopupWindowUtils.destroy(popupWindow);
                 break;
 
             default:
