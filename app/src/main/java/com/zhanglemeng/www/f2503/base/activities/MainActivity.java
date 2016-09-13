@@ -9,8 +9,8 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.zhanglemeng.www.f2503.R;
-import com.zhanglemeng.www.f2503.base.fragments.HomeFragment;
 import com.zhanglemeng.www.f2503.bill.fragments.BillMainFragment;
+import com.zhanglemeng.www.f2503.notice.fragments.NoticeMainFragment;
 import com.zhanglemeng.www.f2503.room.fragments.RoomMainFragment;
 import com.zhanglemeng.www.f2503.tenant.fragments.TenantMainFragment;
 
@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity {
         ImageView ivNotice = (ImageView) vNotice.findViewById(R.id.btn_main);
         ivNotice.setImageResource(R.drawable.tab_notice);
         TabHost.TabSpec noticeTabSpec = tabHost.newTabSpec("tabNotice").setIndicator(vNotice);
-        tabHost.addTab(noticeTabSpec, HomeFragment.class, null);
+        tabHost.addTab(noticeTabSpec, NoticeMainFragment.class, null);
 
         //房间
         View vRoom = getLayoutInflater().inflate(R.layout.tab_hostcontent, null);

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.zhanglemeng.www.f2503.bill.bean.Payment;
 import com.zhanglemeng.www.f2503.bill.bean.Record;
+import com.zhanglemeng.www.f2503.notice.bean.Notice;
 import com.zhanglemeng.www.f2503.room.bean.Room;
 import com.zhanglemeng.www.f2503.tenant.bean.Tenant;
 import com.zhanglemeng.www.f2503.utils.DateUtils;
@@ -322,7 +323,7 @@ public class MyDB {
      */
     public List<Tenant> queryTenantOn() {
         List<Tenant> tenantList = new ArrayList<>();
-        Cursor cursor = db.query("Tenant", new String[] { "name", "id", "room", "water_fee", "electric_fee" }, "status = ?", new String[]{String.valueOf(Tenant.STATUS_ON)}, null, null, null);
+        Cursor cursor = db.query("Tenant", new String[] { "name", "id", "room", "water_fee", "electric_fee", "next_pay_date" }, "status = ?", new String[]{String.valueOf(Tenant.STATUS_ON)}, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(cursor.getColumnIndex("name"));
@@ -330,9 +331,11 @@ public class MyDB {
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
                 double water_fee = cursor.getInt(cursor.getColumnIndex("water_fee"));
                 double electric_fee = cursor.getInt(cursor.getColumnIndex("electric_fee"));
+                String next_pay_date = cursor.getString(cursor.getColumnIndex("next_pay_date"));
                 Tenant tenant = new Tenant(id, name, room);
                 tenant.setWater_fee(water_fee);
                 tenant.setElectric_fee(electric_fee);
+                tenant.setNext_pay_date(next_pay_date);
                 tenantList.add(tenant);
             } while (cursor.moveToNext());
         }
@@ -520,9 +523,14 @@ public class MyDB {
         return result;
     }
 
+    /**
+     * 获取缴费记录列表
+     * @param id
+     * @return
+     */
     public List<Payment> queryPaymentList(int id) {
         List<Payment> payment_list = new ArrayList<>();
-        Cursor cursor = db.query("Payment", new String[] { "date", "type", "money" }, "tenant_id = ?", new String[] { String.valueOf(id) }, null, null,"id DESC", null);
+        Cursor cursor = db.query("Payment", new String[]{"date", "type", "money"}, "tenant_id = ?", new String[]{String.valueOf(id)}, null, null, "id DESC", null);
         if (cursor.moveToFirst()) {
             do {
                 String date = cursor.getString(cursor.getColumnIndex("date"));
@@ -536,5 +544,24 @@ public class MyDB {
 
         return payment_list;
     }
+
+    /**
+     * 获取提醒列表， 目前是获取所有在住租客的代缴费日期
+     * @return
+     */
+    public List<Notice> queryNoticeList() {
+        List<Notice> list_notice = new ArrayList<>();
+        List<Tenant> list_tenant_on = queryTenantOn();
+        for (Tenant tenant : list_tenant_on ) {
+            String content = tenant.getName() + "，" + tenant.getRoom() + " 待结算";
+            String date = "日期：" + tenant.getNext_pay_date();
+            Notice notice = new Notice(content, date);
+            list_notice.add(notice);
+        }
+
+        return list_notice;
+    }
+
+
 
 }
