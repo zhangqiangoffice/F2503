@@ -26,6 +26,39 @@ public class Payment {
         this.money = Double.valueOf(money);
     }
 
+    public Payment(String date, int type, double money) {
+        this.date = date;
+        this.type = type;
+        this.money = money;
+    }
+
+    /**
+     * 获取缴费类型字符串
+     * @return
+     */
+    public String getTypeString() {
+        String str = "其他";
+        switch (type) {
+            case TYPE_W_E:
+                str = STRING_W_E;
+                break;
+            case TYPE_ROOM:
+                str = STRING_ROOM;
+                break;
+            default:
+                break;
+        }
+        return str;
+    }
+
+    /**
+     * 获取金额字符串
+     * @return
+     */
+    public String getMoneyString() {
+        return String.valueOf(money) + "元";
+    }
+
     public int getId() {
         return id;
     }

@@ -5,20 +5,12 @@
     android:orientation="vertical"
     >
 
-    <View style="@style/split_line"
-        android:layout_marginTop="10dp"
-        />
-
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="0.1dp"
-        android:divider="@color/gray_border"
-        />
-
-    <View style="@style/split_line"
-        android:layout_marginBottom="50dp"
+        android:dividerHeight="0dp"
+        android:divider="@null"
         />
 
 </LinearLayout>

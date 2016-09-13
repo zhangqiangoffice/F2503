@@ -68,6 +68,18 @@ public class DetailFeeFragment extends Fragment implements View.OnClickListener{
         return convertView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //展示详情
+        showFee();
+    }
+
+    /**
+     * 初始化视图
+     * @param v
+     */
     private void initView(View v) {
 
         //获取控件，水电费
@@ -96,9 +108,6 @@ public class DetailFeeFragment extends Fragment implements View.OnClickListener{
         //获取租客ID
         tenant_id = getArguments().getInt("tenant_id", 0);
 
-        //展示详情
-        showFee();
-
         //绑定点击事件
         btn_balance_room.setOnClickListener(this);
         btn_balance_w_e.setOnClickListener(this);
@@ -106,7 +115,7 @@ public class DetailFeeFragment extends Fragment implements View.OnClickListener{
     }
 
     /**
-     * 展示详情
+     * 展示费用详情
      */
     private void showFee() {
 
@@ -129,8 +138,6 @@ public class DetailFeeFragment extends Fragment implements View.OnClickListener{
 
         //费用合计
         tv_total_fee.setText(tenant.getTotal_feeString());
-
-
     }
 
     /**

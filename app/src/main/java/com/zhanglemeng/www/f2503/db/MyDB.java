@@ -50,13 +50,6 @@ public class MyDB {
         int result = ERR;
         long result1 = 0;
         int result2 = 1;
-        if (record != null) {
-            ContentValues values = new ContentValues();
-            values.put("water", record.getWater());
-            values.put("electric", record.getElectric());
-            values.put("date", record.getDate());
-            result1 = db.insert("Record", null, values);
-        }
 
         //获取在住租客列表
         List<Tenant> list = queryTenantOn();
@@ -64,21 +57,32 @@ public class MyDB {
         //在住租客人数
         int n = list.size();
 
-        //如果存在租客
+        //如果存在租客，分摊费用
         if (n > 0) {
 
             //上一次的历史记录
             Record last_record = queryLastRecord();
 
+            //平均每户分摊的钱数
             double ave_water = ((record.getWater() - last_record.getWater()) / n ) * 0.5653;
             double ave_electric = ((record.getElectric() - last_record.getElectric()) / n) *3.2;
 
+            //更新数据库租客表
             for (int i = 0; i < n; i++) {
-                result2 = updateTenantWE(list.get(i).getId(), ave_water, ave_electric);
+                result2 = updateTenantWE(list.get(i), ave_water, ave_electric);
                 if(result2 <= 0 ) {
                     break;
                 }
             }
+        }
+
+        //更新水电费记录表
+        if (record != null) {
+            ContentValues values = new ContentValues();
+            values.put("water", record.getWater());
+            values.put("electric", record.getElectric());
+            values.put("date", record.getDate());
+            result1 = db.insert("Record", null, values);
         }
 
         if (result1 > 0 && result2 > 0) {
@@ -318,13 +322,17 @@ public class MyDB {
      */
     public List<Tenant> queryTenantOn() {
         List<Tenant> tenantList = new ArrayList<>();
-        Cursor cursor = db.query("Tenant", new String[] { "name", "id", "room" }, "status = ?", new String[]{String.valueOf(Tenant.STATUS_ON)}, null, null, null);
+        Cursor cursor = db.query("Tenant", new String[] { "name", "id", "room", "water_fee", "electric_fee" }, "status = ?", new String[]{String.valueOf(Tenant.STATUS_ON)}, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String room = cursor.getString(cursor.getColumnIndex("room"));
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
+                double water_fee = cursor.getInt(cursor.getColumnIndex("water_fee"));
+                double electric_fee = cursor.getInt(cursor.getColumnIndex("electric_fee"));
                 Tenant tenant = new Tenant(id, name, room);
+                tenant.setWater_fee(water_fee);
+                tenant.setElectric_fee(electric_fee);
                 tenantList.add(tenant);
             } while (cursor.moveToNext());
         }
@@ -434,13 +442,22 @@ public class MyDB {
 
     }
 
-    public int updateTenantWE(int id, double water, double electric) {
-        String update_tenant = "update Tenant "
-                + "set water_fee = water_fee + 10 " ;
+    /**
+     * 租客待缴费用的增加
+     * @param tenant
+     * @param water
+     * @param electric
+     * @return
+     */
+    public int updateTenantWE(Tenant tenant, double water, double electric) {
 
-        db.execSQL(update_tenant);
+        //变量赋值
+        ContentValues cv = new ContentValues();
+        cv.put("water_fee", tenant.getWater_fee() + water);
+        cv.put("electric_fee", tenant.getElectric_fee() + electric);
 
-        return OK;
+        return db.update("Tenant", cv, "id = ?", new String[] {String.valueOf(tenant.getId())});
+
     }
 
     /**
@@ -501,6 +518,23 @@ public class MyDB {
         }
 
         return result;
+    }
+
+    public List<Payment> queryPaymentList(int id) {
+        List<Payment> payment_list = new ArrayList<>();
+        Cursor cursor = db.query("Payment", new String[] { "date", "type", "money" }, "tenant_id = ?", new String[] { String.valueOf(id) }, null, null,"id DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                String date = cursor.getString(cursor.getColumnIndex("date"));
+                int type = cursor.getInt(cursor.getColumnIndex("type"));
+                double money = cursor.getDouble(cursor.getColumnIndex("money"));
+                Payment payment = new Payment(date, type, money);
+                payment_list.add(payment);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return payment_list;
     }
 
 }
