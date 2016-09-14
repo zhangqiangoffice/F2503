@@ -4,6 +4,9 @@
     android:background="@color/gray_bg"
     android:orientation="vertical">
 
+    <!-- 标题栏-->
+    <include layout="@layout/include_title_bar"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,10 +16,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-
-
-            <!-- 标题栏-->
-            <include layout="@layout/include_title_bar"/>
 
             <!-- 租客信息-->
             <TextView
@@ -259,11 +258,10 @@
                     />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@color/gray_border"
+            <View style="@style/split_line"
+                android:layout_marginBottom="50dp"
                 />
+
         </LinearLayout>
     </ScrollView>
 

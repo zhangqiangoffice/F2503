@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
 
     //头部导航栏控件
     private TextView tv_top_title, tv_top_right_text;
+    private ImageView iv_go_back;
 
     //滑动页标题栏
     private ViewPager vp;
@@ -58,6 +60,7 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
         //获取控件
         tv_top_title = (TextView) findViewById(R.id.top_title);
         tv_top_right_text = (TextView) findViewById(R.id.top_right_text);
+        iv_go_back = (ImageView) findViewById(R.id.go_back);
         tv_vp_left = (TextView) findViewById(R.id.vp_left);
         tv_vp_middle = (TextView) findViewById(R.id.vp_middle);
         tv_vp_right  = (TextView) findViewById(R.id.vp_right);
@@ -70,6 +73,7 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
         //设置标题栏显示
         tv_top_title.setText(R.string.tenant_detail);
         tv_top_right_text.setText(R.string.add);
+        iv_go_back.setVisibility(View.VISIBLE);
 
         //初始化左中右fragment
         fragment_left = new DetailBasicFragment();
@@ -92,6 +96,7 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
         tv_vp_left.setOnClickListener(this);
         tv_vp_middle.setOnClickListener(this);
         tv_vp_right.setOnClickListener(this);
+        iv_go_back.setOnClickListener(this);
 
         //设置ViewPage
         vp.setAdapter(new BasicFragmentPagerAdapter(getSupportFragmentManager(), list_fragment));
@@ -131,8 +136,11 @@ public class TenantDetailActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        //父元素中左侧返回键点击事件
+        super.onClick(v);
 
+        //本页面点击事件
+        switch (v.getId()) {
 
             //点击左侧“租客详情”，滑动页滑动
             case R.id.vp_left:

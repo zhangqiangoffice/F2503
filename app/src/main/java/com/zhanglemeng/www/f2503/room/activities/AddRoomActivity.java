@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -19,11 +20,12 @@ import com.zhanglemeng.www.f2503.utils.T;
  *  新增房间界面
  */
 
-public class AddRoomActivity extends BaseActivity implements View.OnClickListener{
+public class AddRoomActivity extends BaseActivity {
 
     private PopupWindow popupWindow;
 
     //头部导航栏控件
+    private ImageView iv_go_back;
     private TextView tv_top_title, tv_top_right_text;
 
     //房间信息输入框
@@ -47,6 +49,7 @@ public class AddRoomActivity extends BaseActivity implements View.OnClickListene
     private void initView() {
 
         //获取控件
+        iv_go_back = (ImageView) findViewById(R.id.go_back);
         tv_top_title = (TextView) findViewById(R.id.top_title);
         tv_top_right_text = (TextView) findViewById(R.id.top_right_text);
         et_room_name_input = (EditText) findViewById(R.id.room_name_input);
@@ -57,9 +60,11 @@ public class AddRoomActivity extends BaseActivity implements View.OnClickListene
         //设置标题栏显示
         tv_top_title.setText(R.string.add_tenant);
         tv_top_right_text.setText(R.string.save);
+        iv_go_back.setVisibility(View.VISIBLE);
 
         //绑定点击事件
         tv_top_right_text.setOnClickListener(this);
+        iv_go_back.setOnClickListener(this);
 
     }
 
@@ -103,6 +108,10 @@ public class AddRoomActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        //父元素中左侧返回键点击事件
+        super.onClick(v);
+
+        //本页面点击事件
         switch (v.getId()) {
 
             //点击右上角“保存”按钮，进行数据检查并保存到数据库

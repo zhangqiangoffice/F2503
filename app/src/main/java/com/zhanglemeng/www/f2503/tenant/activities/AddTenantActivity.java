@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -23,7 +24,6 @@ import com.zhanglemeng.www.f2503.utils.PopupWindowUtils;
 import com.zhanglemeng.www.f2503.utils.T;
 import com.zhanglemeng.www.f2503.utils.whell.TimePopupWindow;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,11 +32,12 @@ import java.util.List;
  *  新增租客界面
  */
 
-public class AddTenantActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
+public class AddTenantActivity extends BaseActivity implements AdapterView.OnItemClickListener{
 
     private PopupWindow popupWindow;
 
     //头部导航栏控件
+    private ImageView iv_go_back;
     private TextView tv_top_title, tv_top_right_text;
 
     //租客信息输入框
@@ -77,6 +78,7 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
     private void initView() {
 
         //获取控件
+        iv_go_back = (ImageView) findViewById(R.id.go_back);
         tv_top_title = (TextView) findViewById(R.id.top_title);
         tv_top_right_text = (TextView) findViewById(R.id.top_right_text);
         et_name_input = (EditText) findViewById(R.id.name_input);
@@ -110,11 +112,13 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
         //设置标题栏显示
         tv_top_title.setText(R.string.add_tenant);
         tv_top_right_text.setText(R.string.save);
+        iv_go_back.setVisibility(View.VISIBLE);
 
         //绑定点击事件
         tv_top_right_text.setOnClickListener(this);
         et_check_in_room.setOnClickListener(this);
         et_begin_date.setOnClickListener(this);
+        iv_go_back.setOnClickListener(this);
 
         //初始化日期选择控件
         pwTime = new TimePopupWindow(this, TimePopupWindow.Type.YEAR_MONTH_DAY, this);
@@ -267,6 +271,10 @@ public class AddTenantActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        //父元素中左侧返回键点击事件
+        super.onClick(v);
+
+        //本页面点击事件
         switch (v.getId()) {
 
             //点击右上角“保存”按钮，进行数据检查并保存到数据库
